@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PrintMemoLetterAo" targetNamespace="http://tempuri.org/PrintMemoLetterAo.xsd" xmlns:mstns="http://tempuri.org/PrintMemoLetterAo.xsd" xmlns="http://tempuri.org/PrintMemoLetterAo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PrintMemoLetterAo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="PrintMemoLetterAo" msprop:Generator_UserDSName="PrintMemoLetterAo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PrintMemoLetterAO" msprop:Generator_TableClassName="PrintMemoLetterAODataTable" msprop:Generator_TableVarName="tablePrintMemoLetterAO" msprop:Generator_TablePropName="PrintMemoLetterAO" msprop:Generator_RowDeletingName="PrintMemoLetterAORowDeleting" msprop:Generator_RowChangingName="PrintMemoLetterAORowChanging" msprop:Generator_RowEvHandlerName="PrintMemoLetterAORowChangeEventHandler" msprop:Generator_RowDeletedName="PrintMemoLetterAORowDeleted" msprop:Generator_UserTableName="PrintMemoLetterAO" msprop:Generator_RowChangedName="PrintMemoLetterAORowChanged" msprop:Generator_RowEvArgName="PrintMemoLetterAORowChangeEvent" msprop:Generator_RowClassName="PrintMemoLetterAORow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TestZone" msprop:Generator_ColumnVarNameInTable="columnTestZone" msprop:Generator_ColumnPropNameInRow="TestZone" msprop:Generator_ColumnPropNameInTable="TestZoneColumn" msprop:Generator_UserColumnName="TestZone" type="xs:string" minOccurs="0" />
+              <xs:element name="Memo_ID" msprop:Generator_ColumnVarNameInTable="columnMemo_ID" msprop:Generator_ColumnPropNameInRow="Memo_ID" msprop:Generator_ColumnPropNameInTable="Memo_IDColumn" msprop:Generator_UserColumnName="Memo_ID" type="xs:string" minOccurs="0" />
+              <xs:element name="sample_id" msprop:Generator_ColumnVarNameInTable="columnsample_id" msprop:Generator_ColumnPropNameInRow="sample_id" msprop:Generator_ColumnPropNameInTable="sample_idColumn" msprop:Generator_UserColumnName="sample_id" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleDate" msprop:Generator_ColumnVarNameInTable="columnSampleDate" msprop:Generator_ColumnPropNameInRow="SampleDate" msprop:Generator_ColumnPropNameInTable="SampleDateColumn" msprop:Generator_UserColumnName="SampleDate" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleTypeName" msprop:Generator_ColumnVarNameInTable="columnSampleTypeName" msprop:Generator_ColumnPropNameInRow="SampleTypeName" msprop:Generator_ColumnPropNameInTable="SampleTypeNameColumn" msprop:Generator_UserColumnName="SampleTypeName" type="xs:string" minOccurs="0" />
+              <xs:element name="Category_Name" msprop:Generator_ColumnVarNameInTable="columnCategory_Name" msprop:Generator_ColumnPropNameInRow="Category_Name" msprop:Generator_ColumnPropNameInTable="Category_NameColumn" msprop:Generator_UserColumnName="Category_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_UserColumnName="Grade" type="xs:string" minOccurs="0" />
+              <xs:element name="Address" msprop:Generator_ColumnVarNameInTable="columnAddress" msprop:Generator_ColumnPropNameInRow="Address" msprop:Generator_ColumnPropNameInTable="AddressColumn" msprop:Generator_UserColumnName="Address" type="xs:string" minOccurs="0" />
+              <xs:element name="MandName" msprop:Generator_ColumnVarNameInTable="columnMandName" msprop:Generator_ColumnPropNameInRow="MandName" msprop:Generator_ColumnPropNameInTable="MandNameColumn" msprop:Generator_UserColumnName="MandName" type="xs:string" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleName" msprop:Generator_ColumnVarNameInTable="columnSampleName" msprop:Generator_ColumnPropNameInRow="SampleName" msprop:Generator_ColumnPropNameInTable="SampleNameColumn" msprop:Generator_UserColumnName="SampleName" type="xs:string" minOccurs="0" />
+              <xs:element name="RegID" msprop:Generator_ColumnVarNameInTable="columnRegID" msprop:Generator_ColumnPropNameInRow="RegID" msprop:Generator_ColumnPropNameInTable="RegIDColumn" msprop:Generator_UserColumnName="RegID" type="xs:string" minOccurs="0" />
+              <xs:element name="Sid" msprop:Generator_ColumnVarNameInTable="columnSid" msprop:Generator_ColumnPropNameInRow="Sid" msprop:Generator_ColumnPropNameInTable="SidColumn" msprop:Generator_UserColumnName="Sid" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,274 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="License_Generation.aspx.cs"
+    Inherits="License_Generation" %>
+
+<%@ Register TagPrefix="menu" TagName="menu" Src="~/DefaultMenu.ascx" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+    Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Footer.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="../styles/style.css" rel="Stylesheet" type="text/css" />
+    <link href="../Styles/Bootstrap.css" rel="Stylesheet" type="text/css" />
+    <script src="../scripts/JQuery-min.js.js" type="text/javascript"></script>
+    <script src="../scripts/JQuery_FormValidation_Engines.js" type="text/javascript"></script>
+    <script src="../scripts/Jquery_FormValidation_Engine_1.js" type="text/javascript"></script>
+    <link href="../css/ValidationEngine.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        history.pushState(null, null, 'License_Generation.aspx');
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, 'License_Generation.aspx');
+        });
+    </script>
+    <script type="text/javascript">
+        var signerLib;
+        function activeXcall() {
+            try {
+                signerLib = new ActiveXObject("SignatureDemoLib.DigiSignHelper");
+
+            }
+            catch (e) {
+                alert(e.Message)
+            }
+        }
+        function SignData() {
+            try {
+                alert("Signing the document Digitally");
+                if (signerLib == null)
+                    activeXcall();
+
+                var inputData = document.getElementById("<%= txtInput.ClientID %>").value + '$$ISES$$$$ISESDATA$$';
+              //  var serialNumber = signerLib.FetchCertDetails();
+               // alert(inputData);
+                inputData = inputData.replace(/ /g, "");
+
+                debugger;
+                var obj23 = signerLib.AllSignData(inputData, "").replace('$$ISES$$$$ISESDATA$$', '');
+               // alert(obj23);
+                document.getElementById("<%=txtSign.ClientID %>").value = signerLib.AllSignData(inputData, "").replace('$$ISES$$$$ISESDATA$$', '');
+              //  alert('Hi1');
+                document.getElementById("<%=txtHash.ClientID %>").value = signerLib.allHashedData().replace('$$ISES$$$$ISESDATA$$', '');
+              //  alert('Hi2')
+                //alert("Successfully Signed");
+                return true;
+            }
+            catch (ex) {
+                alert("Unable to Sign : " + ex);
+                return false;
+            }
+        }
+
+
+    </script>
+</head>
+<body style="background-color: #b0c4dd;">
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <asp:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panel1" CancelControlID="btnLogClose"
+        TargetControlID="HiddenField1" BackgroundCssClass="modalBackground">
+    </asp:ModalPopupExtender>
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="left" Style="display: none;
+        overflow: auto" Height="600px">
+        <table width="800px" style="overflow: auto; background-color: white;">
+            <tr>
+                <td align="right" class="header">
+                    <asp:ImageButton ID="btnLogClose" runat="server" ImageUrl="~/images/close.jpg" Width="40px"
+                        Height="40px" CausesValidation="false" />
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="top">
+                    <table align="center" style="width: 800px">
+                        <tr>
+                            <td align="center">
+                                <rsweb:ReportViewer ID="RptFarmer" Width="100%" Height="600px" runat="server" SizeToReportContent="true">
+                                </rsweb:ReportViewer>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    <div align="center">
+     <br />
+        <br />
+        <table border="0" width="1000px" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+            <tr>
+                <th align="left" colspan="2" style="background-color: white; color: #CCFF33">
+                    <img id="HeaderImg" runat="server" src="~/images/header.png" />
+                </th>
+            </tr>
+            <tr>
+                <td colspan="2" class="td_Menu_backcolor">
+                    <menu:menu ID="menu" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" class="userdate" bgcolor="White">
+                    <img src="../Images/14.gif" />
+                    <span style="color: green;">Logged As ::</span> &nbsp; <span>
+                        <asp:Label ID="lblUsrName" ForeColor="#ab7d44" Font-Bold="true" runat="server" Text=""></asp:Label>&nbsp;</span>
+                </td>
+                <td align="right" bgcolor="White">
+                    <span style="color: green;">Date ::</span> &nbsp; <span>
+                        <asp:Label ID="lblDate" ForeColor="#ab7d44" Font-Bold="true" runat="server" Text=""></asp:Label>&nbsp;</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" class="style_td_headers">
+                    <span style="color: White;">License Approval</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 10px;" bgcolor="White" colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2">
+                    <table align="center" cellpadding="3" cellspacing="1" width="100%" bgcolor="#FFFFFF">
+                        <tr>
+                            <td bgcolor="White" align="center" colspan="2">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="75%" colspan="2" align="center" style="vertical-align: top;">
+                                            <table align="center" border="1" width="70%" style="border-style: solid">
+                                                <tr>
+                                                    <td align="center">
+                                                        <b>
+                                                            <asp:Label ID="lblName" runat="server"></asp:Label></b>
+                                                    </td>
+                                                </tr>
+                                                <tr align="center">
+                                                    <td>
+                                                        <table align="center">
+                                                            <tr>
+                                                                <td>
+                                                                    <b>Select License Type</b>
+                                                                    <asp:DropDownList CssClass="style_txt_entry" ID="ddlSystem" runat="server" Enabled="false">
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:DropDownList CssClass="style_txt_entry" ID="ddl_License_Type" runat="server"
+                                                                        AutoPostBack="True" OnSelectedIndexChanged="ddl_License_Type_SelectedIndexChanged">
+                                                                        <asp:ListItem Text="Select"></asp:ListItem>
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:DropDownList CssClass="style_txt_entry" ID="ddl_LicenseMode" runat="server"
+                                                                        AutoPostBack="True" OnSelectedIndexChanged="ddl_LicenseMode_SelectedIndexChanged">
+                                                                        <asp:ListItem Text="Select"></asp:ListItem>
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-top: 10px;" bgcolor="White">
+                                                        <asp:HiddenField ID="txtInput" runat="server" />
+                                                        <asp:HiddenField ID="txtSign" runat="server" />
+                                                        <asp:HiddenField ID="txtHash" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="White">
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td align="center" style="margin-bottom: 50px;">
+                                                                    <asp:GridView ID="grdApplicantdetails" runat="server" AllowPaging="False" AutoGenerateColumns="False"
+                                                                        BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px"
+                                                                        CellPadding="3" Width="782px" CellSpacing="2" CssClass="Grid">
+                                                                        <Columns>
+                                                                            <asp:TemplateField HeaderText="Sno">
+                                                                                <ItemTemplate>
+                                                                                    <%# Container.DataItemIndex + 1 %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="Applicant Id">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Label ID="LinkAppId" runat="server" Text='<%#Eval("ApplicantId")%>'></asp:Label>
+                                                                                    <asp:Label ID="lblLicensemode_code" Visible="false" runat="server" Text='<%#Eval("Licensemode_code")%>'></asp:Label>
+                                                                                    <asp:Label ID="lblLicenseType_Code" Visible="false" runat="server" Text='<%#Eval("Licensetype_code")%>'></asp:Label>
+                                                                                     <asp:Label ID="lblAddress" Visible="false" runat="server" Text='<%#Eval("M_Address")%>'></asp:Label>
+                                                                                      <asp:Label ID="lblInward" Visible="false" runat="server" Text='<%#Eval("Inward_No")%>'></asp:Label>
+                                                                                      <asp:Label ID="lblInwardDt" Visible="false" runat="server" Text='<%#Eval("Inward_Dt")%>'></asp:Label>
+                                                                                    <asp:Label ID="lblfirmid" runat="server" Text='<%# Bind("Firm_Id") %>'></asp:Label>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="Name">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Label ID="lblApplicant_Name" runat="server" Text='<%# Bind("Applicant_Name") %>'></asp:Label>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField HeaderText="Firm Name">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Label ID="lblfirm" runat="server" Text='<%# Bind("Name_Frim") %>'></asp:Label>
+                                                                                    <%--<asp:Label ID="lblfirmty" runat="server" Text='<%# Bind("FirmType_Name") %>' Visible="false"></asp:Label>--%>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateField>
+                                                                            <asp:TemplateField>
+                                                                                <ItemTemplate>
+                                                                                    <asp:RadioButtonList ID="rbdstatus" runat="server" RepeatDirection="Horizontal" AutoPostBack="true"
+                                                                                        OnSelectedIndexChanged="rbdstatus_SelectedIndexChanged">
+                                                                                        <asp:ListItem Text="Approve" Value="1"></asp:ListItem>
+                                                                                    </asp:RadioButtonList>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateField>
+                                                                        </Columns>
+                                                                        <EmptyDataRowStyle HorizontalAlign="Center" />
+                                                                        <EmptyDataTemplate>
+                                                                            No Records
+                                                                        </EmptyDataTemplate>
+                                                                    </asp:GridView>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"  bgcolor="White">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"  bgcolor="White">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center"  bgcolor="White">&nbsp;<asp:Button ID="btnSave" runat="server" Text="Genarate License" OnClick="btnSubmit_Click"
+                                                            Visible="false" OnClientClick="return SignData();"  />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 10px;" bgcolor="White" colspan="3">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" bgcolor="White">
+                    <Footer:footer ID="footer" runat="server"></Footer:footer>
+                </td>
+            </tr>
+        </table>
+        <div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

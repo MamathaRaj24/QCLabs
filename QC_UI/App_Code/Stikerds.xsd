@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Stikerds" targetNamespace="http://tempuri.org/Stikerds.xsd" xmlns:mstns="http://tempuri.org/Stikerds.xsd" xmlns="http://tempuri.org/Stikerds.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Stikerds" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="Stikerds" msprop:Generator_UserDSName="Stikerds">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Stiker" msprop:Generator_TableClassName="StikerDataTable" msprop:Generator_TableVarName="tableStiker" msprop:Generator_TablePropName="Stiker" msprop:Generator_RowDeletingName="StikerRowDeleting" msprop:Generator_RowChangingName="StikerRowChanging" msprop:Generator_RowEvHandlerName="StikerRowChangeEventHandler" msprop:Generator_RowDeletedName="StikerRowDeleted" msprop:Generator_UserTableName="Stiker" msprop:Generator_RowChangedName="StikerRowChanged" msprop:Generator_RowEvArgName="StikerRowChangeEvent" msprop:Generator_RowClassName="StikerRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Composition" msprop:Generator_ColumnVarNameInTable="columnComposition" msprop:Generator_ColumnPropNameInRow="Composition" msprop:Generator_ColumnPropNameInTable="CompositionColumn" msprop:Generator_UserColumnName="Composition" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleQty" msprop:Generator_ColumnVarNameInTable="columnSampleQty" msprop:Generator_ColumnPropNameInRow="SampleQty" msprop:Generator_ColumnPropNameInTable="SampleQtyColumn" msprop:Generator_UserColumnName="SampleQty" type="xs:string" minOccurs="0" />
+              <xs:element name="ManufacturingDate" msprop:Generator_ColumnVarNameInTable="columnManufacturingDate" msprop:Generator_ColumnPropNameInRow="ManufacturingDate" msprop:Generator_ColumnPropNameInTable="ManufacturingDateColumn" msprop:Generator_UserColumnName="ManufacturingDate" type="xs:string" minOccurs="0" />
+              <xs:element name="ExpiryDate" msprop:Generator_ColumnVarNameInTable="columnExpiryDate" msprop:Generator_ColumnPropNameInRow="ExpiryDate" msprop:Generator_ColumnPropNameInTable="ExpiryDateColumn" msprop:Generator_UserColumnName="ExpiryDate" type="xs:string" minOccurs="0" />
+              <xs:element name="Sticker" msprop:Generator_ColumnVarNameInTable="columnSticker" msprop:Generator_ColumnPropNameInRow="Sticker" msprop:Generator_ColumnPropNameInTable="StickerColumn" msprop:Generator_UserColumnName="Sticker" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleID" msprop:Generator_ColumnVarNameInTable="columnSampleID" msprop:Generator_ColumnPropNameInRow="SampleID" msprop:Generator_ColumnPropNameInTable="SampleIDColumn" msprop:Generator_UserColumnName="SampleID" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

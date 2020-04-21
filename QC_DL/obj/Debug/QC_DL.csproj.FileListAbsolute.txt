@@ -1,0 +1,7 @@
+E:\sampath\QCLabs\QC_DL\bin\Debug\QC_DL.dll
+E:\sampath\QCLabs\QC_DL\bin\Debug\QC_DL.pdb
+E:\sampath\QCLabs\QC_DL\bin\Debug\QC_BE.dll
+E:\sampath\QCLabs\QC_DL\bin\Debug\QC_BE.pdb
+E:\sampath\QCLabs\QC_DL\obj\Debug\QC_DL.csprojResolveAssemblyReference.cache
+E:\sampath\QCLabs\QC_DL\obj\Debug\QC_DL.dll
+E:\sampath\QCLabs\QC_DL\obj\Debug\QC_DL.pdb

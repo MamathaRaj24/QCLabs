@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "QC_UI", "QC_UI\", "{0C297F81-9F6D-4594-977F-4C35D9866E31}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{064C5F92-2EE6-42EA-B9F3-02F9D72EDE30}|QC_BE.dll;{1DFCC9FD-4F31-438F-BFDE-4B7DEADEF359}|QC_DL.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/QC_UI"
+		Debug.AspNetCompiler.PhysicalPath = "QC_UI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\QC_UI\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/QC_UI"
+		Release.AspNetCompiler.PhysicalPath = "QC_UI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\QC_UI\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50170"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QC_BE", "QC_BE\QC_BE.csproj", "{064C5F92-2EE6-42EA-B9F3-02F9D72EDE30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QC_DL", "QC_DL\QC_DL.csproj", "{1DFCC9FD-4F31-438F-BFDE-4B7DEADEF359}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C297F81-9F6D-4594-977F-4C35D9866E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C297F81-9F6D-4594-977F-4C35D9866E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C297F81-9F6D-4594-977F-4C35D9866E31}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C297F81-9F6D-4594-977F-4C35D9866E31}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{064C5F92-2EE6-42EA-B9F3-02F9D72EDE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{064C5F92-2EE6-42EA-B9F3-02F9D72EDE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064C5F92-2EE6-42EA-B9F3-02F9D72EDE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{064C5F92-2EE6-42EA-B9F3-02F9D72EDE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DFCC9FD-4F31-438F-BFDE-4B7DEADEF359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFCC9FD-4F31-438F-BFDE-4B7DEADEF359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFCC9FD-4F31-438F-BFDE-4B7DEADEF359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFCC9FD-4F31-438F-BFDE-4B7DEADEF359}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="formK" targetNamespace="http://tempuri.org/formK.xsd" xmlns:mstns="http://tempuri.org/formK.xsd" xmlns="http://tempuri.org/formK.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="formK" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="formK" msprop:Generator_UserDSName="formK">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="FormK" msprop:Generator_TableClassName="FormKDataTable" msprop:Generator_TableVarName="tableFormK" msprop:Generator_RowChangedName="FormKRowChanged" msprop:Generator_TablePropName="FormK" msprop:Generator_RowDeletingName="FormKRowDeleting" msprop:Generator_RowChangingName="FormKRowChanging" msprop:Generator_RowEvHandlerName="FormKRowChangeEventHandler" msprop:Generator_RowDeletedName="FormKRowDeleted" msprop:Generator_RowClassName="FormKRow" msprop:Generator_UserTableName="FormK" msprop:Generator_RowEvArgName="FormKRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SampleName" msprop:Generator_ColumnVarNameInTable="columnSampleName" msprop:Generator_ColumnPropNameInRow="SampleName" msprop:Generator_ColumnPropNameInTable="SampleNameColumn" msprop:Generator_UserColumnName="SampleName" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleTypeName" msprop:Generator_ColumnVarNameInTable="columnSampleTypeName" msprop:Generator_ColumnPropNameInRow="SampleTypeName" msprop:Generator_ColumnPropNameInTable="SampleTypeNameColumn" msprop:Generator_UserColumnName="SampleTypeName" type="xs:string" minOccurs="0" />
+              <xs:element name="PhysicalCondition" msprop:Generator_ColumnVarNameInTable="columnPhysicalCondition" msprop:Generator_ColumnPropNameInRow="PhysicalCondition" msprop:Generator_ColumnPropNameInTable="PhysicalConditionColumn" msprop:Generator_UserColumnName="PhysicalCondition" type="xs:string" minOccurs="0" />
+              <xs:element name="Code_Sticker_No" msprop:Generator_ColumnVarNameInTable="columnCode_Sticker_No" msprop:Generator_ColumnPropNameInRow="Code_Sticker_No" msprop:Generator_ColumnPropNameInTable="Code_Sticker_NoColumn" msprop:Generator_UserColumnName="Code_Sticker_No" type="xs:string" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="SampleDate" msprop:Generator_ColumnVarNameInTable="columnSampleDate" msprop:Generator_ColumnPropNameInRow="SampleDate" msprop:Generator_ColumnPropNameInTable="SampleDateColumn" msprop:Generator_UserColumnName="SampleDate" type="xs:string" minOccurs="0" />
+              <xs:element name="DataColumn1" msprop:Generator_ColumnVarNameInTable="columnDataColumn1" msprop:Generator_ColumnPropNameInRow="DataColumn1" msprop:Generator_ColumnPropNameInTable="DataColumn1Column" msprop:Generator_UserColumnName="DataColumn1" type="xs:string" minOccurs="0" />
+              <xs:element name="DistName" msprop:Generator_ColumnVarNameInTable="columnDistName" msprop:Generator_ColumnPropNameInRow="DistName" msprop:Generator_ColumnPropNameInTable="DistNameColumn" msprop:Generator_UserColumnName="DistName" type="xs:string" minOccurs="0" />
+              <xs:element name="MandName" msprop:Generator_ColumnVarNameInTable="columnMandName" msprop:Generator_ColumnPropNameInRow="MandName" msprop:Generator_ColumnPropNameInTable="MandNameColumn" msprop:Generator_UserColumnName="MandName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

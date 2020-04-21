@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CommonFuncs" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAYAAIAAAAAAAFAAAQAAQQIAAAAAAAABAQEAAAg=</HashCode>
+      <FileName>App_Code\CommonFuncs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeleteCookie" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DeleteCookie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExceptionLogging" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAQAAAAAAAAQAAAAAAAAAABA=</HashCode>
+      <FileName>App_Code\ExceptionLogging.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MimeType" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAwAABACEBAAEACAIABAAAgAwEAEAAAAAAAIAAACAQ=</HashCode>
+      <FileName>App_Code\MimeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrevBrowCache" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\PrevBrowCache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomImage" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAABCAAAAQAQAAAAEAAEAAAAhAIAAQACAAAAAA=</HashCode>
+      <FileName>App_Code\RandomImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SampleSqlInjectionScreeningModule" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAAAAAAAAAAAAAAAAAIAACAAAgAEA=</HashCode>
+      <FileName>App_Code\SampleSqlInjectionScreeningModule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Validate" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAwAAQpADSFAAMAICCAACARACCIABAAAALREDAAABA=</HashCode>
+      <FileName>App_Code\Validate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

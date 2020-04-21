@@ -1,0 +1,776 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data;
+using Microsoft.Reporting.WebForms;
+using Ayush_DAL;
+using Ayush_BE;
+using System.Data.SqlClient;
+//using SignatureDemoLib;
+using System.IO;
+using System.Text;
+using SignatureDemoLib;
+
+
+public partial class License_Generation : System.Web.UI.Page
+{
+    string ConnKey = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+    CommonFuncs ObjCommon = new CommonFuncs();
+    DataTable dt;
+    Reg_DL objRegDL = new Reg_DL();
+    Regsitration objRegBE = new Regsitration();
+    DIDL objDI = new DIDL();
+    private DataSet dtCnt;
+    string DigitralSign = "";
+    private int m_currentPageIndex;
+    private IList<Stream> m_streams;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if ((Request.ServerVariables["HTTP_REFERER"] == null) || (Request.ServerVariables["HTTP_REFERER"] == ""))
+        {
+            Response.Redirect("~/Error.aspx");
+        }
+        else
+        {
+            string http_ref = Request.ServerVariables["HTTP_REFERER"].Trim();
+            string http_hos = Request.ServerVariables["HTTP_HOST"].Trim();
+            int len = http_hos.Length;
+            if (http_ref.IndexOf(http_hos, 0) < 0)
+            {
+                Response.Redirect("~/Error.aspx");
+            }
+        }
+        if (Session["UsrName"] == null || Session["Role"].ToString() != "3")
+        {
+            Response.Redirect("~/Error.aspx");
+        }
+        if (!IsPostBack)
+        {
+            try
+            {
+                lblUsrName.Text = Session["RoleName"].ToString();
+                //lbl_Welcome.Text = "Welcome to " + Session["RoleName"].ToString();
+                lblDate.Text = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year;
+                //ConnKey = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+                BindSystem();
+                // Getlincese();
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendExcepToDB(ex, Session["UserId"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
+                Response.Redirect("~/Error.aspx");
+
+            }
+        }
+    }
+
+
+    public void BindSystem()
+    {
+        try
+        {
+            dt = new DataTable();
+            dt = objRegDL.GetSystemDAL();
+            ObjCommon.BindDropDownLists(ddlSystem, dt, "System_TypeNm", "System_Type", "0");
+            ddlSystem.SelectedValue = Session["System"].ToString();
+            ddlSystem.Enabled = false;
+            dt.Dispose();
+            GetLicense();
+        }
+        catch (Exception ex)
+        {
+            ExceptionLogging.SendExcepToDB(ex, "", Request.ServerVariables["REMOTE_ADDR"].ToString());
+            Response.Redirect("~/Error.aspx");
+
+        }
+    }
+
+    public void GetLicense()
+    {
+        dt = new DataTable();
+        try
+        {
+            dt = objRegDL.GetLicenseTypeDAL(ddlSystem.SelectedValue);
+            if (dt.Rows.Count > 0)
+            {
+
+                ObjCommon.BindDropDownLists(ddl_License_Type, dt, "LicenseType_Name", "LicenseType_Code", "0");
+
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionLogging.SendExcepToDB(ex, "", Request.ServerVariables["REMOTE_ADDR"].ToString());
+            Response.Redirect("~/Error.aspx");
+
+        }
+    }
+
+    public void getLicenseData()
+    {
+        try
+        {
+            objRegBE.System = ddlSystem.SelectedValue.ToString();
+            objRegBE.LicenseType_Code = ddl_License_Type.SelectedValue.ToString();
+            objRegBE.LicenseMode_Code = ddl_LicenseMode.SelectedValue.ToString();
+            if (ddl_License_Type.SelectedValue == "2")
+            {
+                objRegBE.Action = "ADRTLD";
+            }
+            else if (ddl_License_Type.SelectedValue == "3")
+            {
+                objRegBE.Action = "ADLTLD";
+            }
+            else
+            {
+                objRegBE.Action = "ADGTLD";
+            }
+            DataTable dtCnt = objDI.GetDocmentsDtlsADMNF(objRegBE, ConnKey);
+            // if (dtCnt.Rows.Count > 0)
+            //{
+            grdApplicantdetails.DataSource = dtCnt;
+            grdApplicantdetails.DataBind();
+            Session["dtCnt"] = dtCnt;
+            btnSave.Visible = true;
+            //}
+            // else
+            // {
+            // ObjCommon.ShowAlertMessage("No data found");
+            //}
+        }
+        catch (Exception ex)
+        {
+            ExceptionLogging.SendExcepToDB(ex, Session["UserId"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
+            Response.Redirect("~/Error.aspx");
+
+        }
+
+
+    }
+    public string GetImage(object img)
+    {
+        if (img != DBNull.Value)
+        {
+            return "data:application/pdf;base64," + Convert.ToBase64String((byte[])img);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+
+    //protected void btnSubmit_Click(object sender, EventArgs e)
+    //{
+
+    //    foreach (GridViewRow gr in grdApplicantdetails.Rows)
+    //    {
+    //        RadioButtonList rbdstatus = (RadioButtonList)gr.FindControl("rbdstatus");
+    //        Label lblAppid = (Label)gr.FindControl("LinkAppId");
+    //        Label lblfirmid = (Label)gr.FindControl("lblfirmid");
+    //        Label lblltcode = (Label)gr.FindControl("lblLicenseType_Code");
+    //        Label lbllmcode = (Label)gr.FindControl("lblLicensemode_code");
+    //        Label lbllsubcode = (Label)gr.FindControl("lblLicenseSubType_Code");
+    //        Label lblfirmnm = (Label)gr.FindControl("lblfirm");
+    //        Label lblfirmnmty = (Label)gr.FindControl("lblLicenseType_Code");
+    //        Label lblAppnm = (Label)gr.FindControl("Applicant_Name");
+    //        Label lblAddress = (Label)gr.FindControl("lblAddress");
+    //        Label lblInward = (Label)gr.FindControl("lblInward");
+    //        Label lblInwardDt = (Label)gr.FindControl("lblInwardDt");
+
+    //        if (rbdstatus.SelectedIndex == -1)
+    //        {
+    //            ObjCommon.ShowAlertMessage("Please select First one");
+    //            rbdstatus.Focus();
+    //            return;
+    //        }
+
+    //        try
+    //        {
+    //            dtCnt = objDI.GetApplicantLicenseAllDtls(ViewState["ApplicantId"].ToString(), ViewState["FirmId"].ToString(), ddl_LicenseMode.SelectedValue, ddl_License_Subtype.SelectedValue, ddl_Ltype.SelectedValue, "ADF", ConnKey);
+    //            //dtCnt = (DataSet)Session["dtCnt"];
+    //            objRegBE = new Regsitration();
+    //            objRegBE.ApplicantId = dtCnt.Tables[0].Rows[0]["ApplicantId"].ToString();
+    //            objRegBE.FirmId = dtCnt.Tables[0].Rows[0]["Firm_Id"].ToString();
+    //            objRegBE.LicenseType_Code = dtCnt.Tables[0].Rows[0]["LicenseType_Code"].ToString();
+    //            objRegBE.LicenseSubType_Code = dtCnt.Tables[0].Rows[0]["LicenseSubType_Code"].ToString();
+    //            objRegBE.LicenseMode_Code = dtCnt.Tables[0].Rows[0]["LicenseMode_Code"].ToString();
+    //            objRegBE.YEAR = dtCnt.Tables[0].Rows[0]["YEAR"].ToString();
+    //            objRegBE.EXPDATE = DateTime.Parse(dtCnt.Tables[0].Rows[0]["EXPDATE"].ToString(), provider, System.Globalization.DateTimeStyles.NoCurrentDateDefault).Date;
+    //            objRegBE.FRMDATE = DateTime.Parse(dtCnt.Tables[0].Rows[0]["FRMDATE"].ToString(), provider, System.Globalization.DateTimeStyles.NoCurrentDateDefault).Date;
+    //            objRegBE.SignedInput = ViewState["StrData"].ToString();
+    //            objRegBE.SignedValue = ViewState["nativitySign"].ToString();
+    //            objRegBE.SignedhashValue = ViewState["nativityHash"].ToString();
+    //            objRegBE.Signedby = SignerNm.ToString();
+    //            string DigitralSign = "";
+    //            objRegBE.ApplicantId = lblAppid.Text;
+    //            objRegBE.FirmId = lblfirmid.Text;
+    //            objRegBE.Action = "ADAPDTO";
+    //            objRegBE.System = Session["System"].ToString();
+    //            DigitralSign += lblAppid.Text.ToString() + "|" + lblfirmid.Text.ToString() + "|" + lblAddress.Text.ToString() + "|" + lblInward.Text.ToString() + "|" + lblInwardDt.Text.ToString() + "|" + lblfirmnm.Text.ToString() + "|";
+    //            // }
+    //            ViewState["StrData"] = DigitralSign;
+    //            DataTable dtCnt = objDI.GetDocmentsDtlsADMNF(objRegBE, ConnKey);
+    //            if (dtCnt.Rows.Count > 0)
+    //            {
+
+    //                DigitralSign += dtCnt.Rows[0]["Name_Frim"].ToString() + "|" + dtCnt.Rows[0]["M_Address"].ToString() + "|" + dtCnt.Rows[0]["M_Address"].ToString() + "|" + dtCnt.Rows[0]["License_id"].ToString() + "|" + dtCnt.Rows[0]["FRMDATE"].ToString() + "|" + dtCnt.Rows[0]["EXPDATE"].ToString() + "|";
+
+    //            }
+
+    //            //DigitralSign = DigitralSign.Replace("\n", "").Replace("\t", "").Replace("\r", "").Replace(" ", "");
+    //            txtInput.Value = DigitralSign.Replace("\n", "").Replace("\t", "").Replace("\r", "").Replace(" ", "").Replace(">", "").Replace("<", "").Replace("%", "");
+    //             string SignerNm = GetSignerName();
+
+    //             if (SignerNm != "")
+    //             {
+
+
+    //                 RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("Ds_LicenceManuf", dtCnt));
+
+    //                 ReportParameter rp = new ReportParameter("Signedby", SignerNm.ToString());
+
+    //                 //ReportParameter rp1 = new ReportParameter("TimeStamp", dtCnt.Tables[0].Rows[0]["EntryDate"].ToString());
+    //                 ReportParameter rp2 = new ReportParameter("TimeStamp", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt"));
+
+    //                 // OR Set Report Path  
+    //                 RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_ManufLicence.rdlc");
+    //                 // Refresh and Display Report  
+    //                 RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });                   
+    //                 RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp2 });
+    //                 RptFarmer.LocalReport.Refresh();
+
+
+
+    //                 if (rbdstatus.SelectedValue != null)
+    //                 {
+    //                     DataTable dt = objDI.UpdateADStatusADL(lblAppid.Text.Trim(), lblfirmid.Text.Trim(), lbllmcode.Text.Trim(), lblltcode.Text.Trim(), Convert.ToInt32(rbdstatus.SelectedValue), "", ConnKey);
+    //                     if (dt.Rows.Count > 0)
+    //                     {
+    //                         ObjCommon.ShowAlertMessage(dt.Rows[0][0].ToString());
+    //                     }
+    //                     mp1.Show();
+    //                 }
+    //             }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ExceptionLogging.SendExcepToDB(ex, Session["UserId"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
+    //            Response.Redirect("~/Error.aspx");
+
+    //        }
+    //    }
+    //}
+    protected void rbdstatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        RadioButtonList rbdstatus1 = sender as RadioButtonList;
+        GridViewRow gRow = (GridViewRow)rbdstatus1.NamingContainer;
+        string status = rbdstatus1.SelectedValue;
+        foreach (GridViewRow gr1 in grdApplicantdetails.Rows)
+        {
+            RadioButtonList rbdstatus = (RadioButtonList)gr1.FindControl("rbdstatus");
+            rbdstatus.SelectedIndex = -1;
+        }
+        rbdstatus1.SelectedValue = status;
+        int j = 0;
+        foreach (GridViewRow gr1 in grdApplicantdetails.Rows)
+        {
+            RadioButtonList rbdstatus = (RadioButtonList)gr1.FindControl("rbdstatus");
+            if (rbdstatus.SelectedValue != "")
+            {
+                j++;
+
+            }
+        }
+        if (j > 0)
+        {
+            foreach (GridViewRow gr in grdApplicantdetails.Rows)
+            {
+
+
+
+                RadioButtonList rbdstatus = (RadioButtonList)gr.FindControl("rbdstatus");
+                if (rbdstatus.SelectedValue != "")
+                {
+
+
+                    Label lblAppid = (Label)gr.FindControl("LinkAppId");
+                    ViewState["ApplicantId"] = lblAppid.Text;
+                    Label lblfirmid = (Label)gr.FindControl("lblfirmid");
+                    ViewState["FirmId"] = lblfirmid.Text;
+                    Label lblltcode = (Label)gr.FindControl("lblLicenseType_Code");
+                    Label lbllmcode = (Label)gr.FindControl("lblLicensemode_code");
+                    Label lbllsubcode = (Label)gr.FindControl("lblLicenseSubType_Code");
+                    Label lblfirmnm = (Label)gr.FindControl("lblfirm");
+                    Label lblfirmnmty = (Label)gr.FindControl("lblLicenseType_Code");
+                    Label lblAppnm = (Label)gr.FindControl("Applicant_Name");
+
+                    Label lblAddress = (Label)gr.FindControl("lblAddress");
+                    Label lblInward = (Label)gr.FindControl("lblInward");
+                    Label lblInwardDt = (Label)gr.FindControl("lblInwardDt");
+                    ViewState["Inward"] = lblInward.Text;
+                    //objreg.ApplicantId = lblAppid.Text;
+                    //objreg.FirmId = lblfirmid.Text;
+                    //objreg.LicenseType_Code = lblltcode.Text;
+                    //objreg.LicenseMode_Code = lbllmcode.Text;
+                    //objreg.LicenseSubType_Code = lbllsubcode.Text;
+                    //objreg.Action = "ADT";
+
+
+
+                    try
+                    {
+                        DataSet dtCnt;
+                        DigitralSign = "";
+                        DigitralSign += lblAppid.Text.ToString() + "|" + lblfirmid.Text.ToString() + "|" + lblAddress.Text.ToString() + "|" + lblInward.Text.ToString() + "|" + lblInwardDt.Text.ToString() + "|" + lblfirmnm.Text.ToString() + "|";
+
+                        // }
+                        ViewState["StrData"] = DigitralSign;
+                        //DigitralSign = DigitralSign.Replace("\n", "").Replace("\t", "").Replace("\r", "").Replace(" ", "");
+                        txtInput.Value = DigitralSign.Replace("\n", "").Replace("\t", "").Replace("\r", "").Replace(" ", "").Replace(">", "").Replace("<", "").Replace("%", "");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionLogging.SendExcepToDB(ex, Session["UserId"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
+                        Response.Redirect("~/Error.aspx");
+
+                    }
+                }
+
+            }
+            // Button2.Visible = true;
+        }
+        else
+        {
+            ObjCommon.ShowAlertMessage("Please select any one option");
+            return;
+        }
+    }
+
+    private string GetSignerName()
+    {
+        string SignerName = "";
+        try
+        {
+            string[] getSign = txtSign.Value.Split(new string[] { "$$ISESDATA$$" }, StringSplitOptions.None);
+            string[] getHash = txtHash.Value.Split(new string[] { "$$ISESDATA$$" }, StringSplitOptions.None);
+
+            string nativitySign = getSign[0].Split(new string[] { "$$ISES$$" }, StringSplitOptions.None)[0];
+            string nativityHash = getHash[0].Split(new string[] { "$$ISES$$" }, StringSplitOptions.None)[0];
+
+            DigiSignHelper ds = new DigiSignHelper();
+            //string input = DigitralSign;
+            string input = ViewState["StrData"].ToString();
+            input = input.Replace("\n", "").Replace("\t", "").Replace("\r", "").Replace(" ", "");
+            string CertificateDetails = ds.getCertificateDetails(input, nativitySign, nativityHash);
+
+            if (CertificateDetails == "" || CertificateDetails.Split(new string[] { "$$ISES$$" }, StringSplitOptions.None).Length <= 1)
+            {
+                //Session["clicked"] = null;
+                ObjCommon.ShowAlertMessage("Unable to read the Certficate Details.");
+                return SignerName;
+            }
+
+
+            string VerifiedSignedData1 = ds.getSignatureDetails(input, nativitySign, nativityHash);
+
+            ViewState["nativitySign"] = nativitySign;
+            ViewState["nativityHash"] = nativityHash;
+
+            if (String.IsNullOrEmpty(VerifiedSignedData1.Trim()))
+            {
+                // throw Exception("");
+            }
+            else
+            {
+                try
+                {
+                    string[] VerifiedSignedData = VerifiedSignedData1.Split(',');
+                    if (VerifiedSignedData != null)
+                    {
+                        foreach (string s in VerifiedSignedData)
+                        {
+                            string s1 = s.Trim().ToUpper();
+                            if (s1.StartsWith("CN".ToUpper()))
+                            {
+                                if (s1.Split('=').Length > 1)
+                                    SignerName = s1.Split('=')[1];
+                                else
+                                    SignerName = s1;
+                            }
+                        }
+                    }
+
+
+                }
+                catch (Exception ee)
+                {
+                    ObjCommon.ShowAlertMessage(ee.Source);
+                }
+            }
+
+        }
+        catch (Exception ee)
+        {
+            ObjCommon.ShowAlertMessage(ee.Source);
+        }
+
+        return SignerName;
+
+
+    }
+    IFormatProvider provider = new System.Globalization.CultureInfo("fr-FR", true);
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string SignerNm = GetSignerName();
+            if (SignerNm != "")
+            {
+                DataTable dtCnt;
+
+                objRegBE.ApplicantId = ViewState["ApplicantId"].ToString();
+                objRegBE.FirmId = ViewState["FirmId"].ToString();
+                objRegBE.System = ddlSystem.SelectedValue;
+                objRegBE.LicenseType_Code = ddl_License_Type.SelectedValue;
+                objRegBE.LicenseMode_Code = ddl_LicenseMode.SelectedValue;
+                
+                objRegBE.Active = "1";
+                if (ddlSystem.SelectedValue == "1" && ddl_License_Type.SelectedValue == "1" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    objRegBE.Action = "ADAPDTO";
+                }
+                if (ddlSystem.SelectedValue == "2" && ddl_License_Type.SelectedValue == "1" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    objRegBE.Action = "ADAPDTO";
+                }
+                if (ddlSystem.SelectedValue == "1" && ddl_License_Type.SelectedValue == "1" && ddl_LicenseMode.SelectedValue == "2")
+                {
+                    objRegBE.Action = "ADARDTO";
+                }
+                if (ddlSystem.SelectedValue == "1" && ddl_License_Type.SelectedValue == "3" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    objRegBE.Action = "ADLICG";
+                }
+                if (ddlSystem.SelectedValue == "3" && ddl_License_Type.SelectedValue == "2" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    objRegBE.Action = "SALEG";
+                }
+                if (ddlSystem.SelectedValue == "3" && ddl_License_Type.SelectedValue == "2" && ddl_LicenseMode.SelectedValue == "2")
+                {
+                    objRegBE.Action = "SALRG";
+                }
+                dtCnt = objDI.GetDocmentsDtlsADMNF(objRegBE, ConnKey);
+
+                // dtCnt = objDI.GetApplicantLicenseAllDtls(objRegBE, ConnKey);
+                //dtCnt = (DataSet)Session["dtCnt"];
+                objRegBE = new Regsitration();
+                objRegBE.ApplicantId = dtCnt.Rows[0]["ApplicantId"].ToString();
+                objRegBE.FirmId = dtCnt.Rows[0]["Firm_Id"].ToString();
+                objRegBE.System = dtCnt.Rows[0]["Application_Type"].ToString();
+                objRegBE.LicenseType_Code = dtCnt.Rows[0]["LicenseType_Code"].ToString();
+                objRegBE.LicenseMode_Code = dtCnt.Rows[0]["LicenseMode_Code"].ToString();
+                objRegBE.YEAR = dtCnt.Rows[0]["YEAR"].ToString();
+                objRegBE.EXPDATE = DateTime.Parse(dtCnt.Rows[0]["EXPDATE"].ToString(), provider, System.Globalization.DateTimeStyles.NoCurrentDateDefault).Date;
+                objRegBE.FRMDATE = DateTime.Parse(dtCnt.Rows[0]["FRMDATE"].ToString(), provider, System.Globalization.DateTimeStyles.NoCurrentDateDefault).Date;
+                //objRegBE.SignedInput = "";
+                //objRegBE.SignedValue = "";
+                 objRegBE.InwardNo = ViewState["Inward"].ToString();
+                 objRegBE.SignedInput = ViewState["StrData"].ToString();
+                 objRegBE.SignedValue = ViewState["nativitySign"].ToString();
+                 objRegBE.InwardNo = ViewState["Inward"].ToString();
+                 objRegBE.SignedhashValue = ViewState["nativityHash"].ToString();
+                 objRegBE.Signedby = SignerNm.ToString();
+                
+                Session["dtCnt"] = dtCnt;
+
+
+                objRegBE.LicenseID = dtCnt.Rows[0]["License_Id"].ToString();
+
+                objRegBE.IpAddress = Request.ServerVariables["REMOTE_ADDR"].ToString();
+                //objRegBE.Action = "ADT";
+
+
+
+
+                RptFarmer.LocalReport.DataSources.Clear();
+
+                //ReportParameter rp1 = new ReportParameter("TimeStamp", DateTime.Now.ToString());
+
+
+
+                ReportParameter rp = new ReportParameter("Signedby", SignerNm.ToString());
+            //ReportParameter rp = new ReportParameter("Signedby", "D.SOWJANYA");
+
+              ReportParameter rp1 = new ReportParameter("TimeStamp", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss tt"));
+               // ReportParameter rp1 = new ReportParameter("TimeStamp", DateTime.Now.ToString("30/04/2019 HH:mm:ss tt"));
+                //ReportParameter rp2 = new ReportParameter("CDATE", dtCnt.Rows[0]["CDATE"].ToString());
+
+
+
+
+
+                if (ddlSystem.SelectedValue == "1" && ddl_License_Type.SelectedValue == "1" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtCnt));
+                    RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_ManufLicence.rdlc");
+                    // OR Set Report Path  
+
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+
+                }
+                if (ddlSystem.SelectedValue == "2" && ddl_License_Type.SelectedValue == "1" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtCnt));
+                    RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_ManufLicence.rdlc");
+                    // OR Set Report Path  
+
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+
+                }
+                if (ddlSystem.SelectedValue == "1" && ddl_License_Type.SelectedValue == "1" && ddl_LicenseMode.SelectedValue == "2")
+                {
+                    RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtCnt));
+                    RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_ManufRenLicence.rdlc");
+                    // OR Set Report Path  
+
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+                }
+                if (ddlSystem.SelectedValue == "1" && ddl_License_Type.SelectedValue == "3" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtCnt));
+                    RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_L25E.rdlc");
+                    // OR Set Report Path  
+
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+                }
+                if (ddlSystem.SelectedValue == "3" && ddl_License_Type.SelectedValue == "2" && ddl_LicenseMode.SelectedValue == "1")
+                {
+                    RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtCnt));
+                    RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_H20_DLicence.rdlc");
+                    // OR Set Report Path  
+
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+                }
+
+                if (ddlSystem.SelectedValue == "3" && ddl_License_Type.SelectedValue == "2" && ddl_LicenseMode.SelectedValue == "2")
+                {
+                    RptFarmer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dtCnt));
+                    RptFarmer.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RDLCReports/Rpt_H20_ELicence.rdlc");
+                    // OR Set Report Path  
+
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp });
+                    RptFarmer.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+                }
+                // Refresh and Display Report  
+                RptFarmer.LocalReport.Refresh();
+
+                if (dtCnt.Rows[0]["SignedInput"] != null)
+                {
+                    //DataTable dtsel = (DataTable)Session["dtCnt"];
+                    //if (dtsel.Rows.Count > 0)
+                    //{
+                    //    if (Session["dtCnt"] != null)
+                    //    {
+                    //        dtsel.Columns.Remove("Applicant_Name");
+                    //        dtsel.Columns.Remove("Name_Frim");
+                    //        dtsel.Columns.Remove("M_Address");
+                    //        dtsel.Columns.Remove("System_TypeNm");
+                    //        dtsel.Columns.Remove("LicenseType_Name");
+                    //        dtsel.Columns.Remove("LicenseMode_Name");
+                    //        dtsel.Columns.Remove("FirmType_Name");
+                    //        dtsel.Columns.Remove("Occupation");
+                    //        dtsel.Columns.Remove("Staff_Mdregno");
+                    //        dtsel.Columns.Remove("Staff_name");
+                    //        dtsel.Columns.Remove("Staff_Qualification");
+                    //        dtsel.Columns.Remove("DistName");
+                    //        dtsel.Columns.Remove("Name");
+                    //        dtsel.Columns.Remove("FName");
+                    //        dtsel.Columns.Remove("Staff_Experience");
+                    //        dtsel.Columns.Remove("Composition");
+                    //        dtsel.Columns.Remove("ProductName");
+                    //        dtsel.Columns.Remove("System");
+                    //        dtsel.Columns.Remove("MandName");
+                    //        dtsel.Columns.Remove("Village");
+                    //        dtsel.Columns.Remove("M_Pincode");
+                    //        dtsel.Columns.Remove("YEAR");
+                    //        dtsel.Columns.Remove("Signedby");
+                    //        dtsel.Columns.Remove("EntryDate");
+                    //        dtsel.Columns.Remove("Signedby");
+                    //        dtsel.Columns.Remove("SignedInput");
+                    //        dtsel.Columns.Remove("EXPDATE");
+                    //        dtsel.Columns.Remove("FRMDATE");
+
+                    //    }
+                    //    Session["dtCnt"] = dtsel;
+                    //}
+                    Export(RptFarmer.LocalReport);
+                    byte[] strm = Print();
+                    objRegBE.UploadFile = strm;
+
+                    //objRegBE.IpAddress = Request.ServerVariables["REMOTE_ADDR"].ToString();
+                    objRegBE.Action = "ADT";
+                    DataTable dt = objDI.UpdateMfgADStatusALDL(objRegBE, ConnKey);
+                    getLicenseData();
+                }
+                mp1.Show();
+            }
+            else
+            {
+                ObjCommon.ShowAlertMessage("Unable to read the Certficate Details.");
+                return;
+            }
+
+
+
+            //DataSet dtCnt = objDI.GetApplicantLicenseDtls(ViewState["ApplicantId"].ToString(), ViewState["FirmId"].ToString(), ddl_LicenseMode.SelectedValue, ddl_License_Subtype.SelectedValue, ddl_Ltype.SelectedValue, "ADAPDTO", ConnKey);
+
+            // DataSet dtCnt = objDI.GetApplicantLicenseAllDtls(ViewState["ApplicantId"].ToString(), ViewState["FirmId"].ToString(), ddl_LicenseMode.SelectedValue, ddl_License_Subtype.SelectedValue, ddl_Ltype.SelectedValue, "ADF", ConnKey);
+
+
+
+
+        }
+        catch (Exception ex)
+        {
+            ExceptionLogging.SendExcepToDB(ex, "", Request.ServerVariables["REMOTE_ADDR"].ToString());
+            //Response.Redirect("~/Error.aspx");
+
+        }
+    }
+
+    protected void ddl_License_Type_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetLicenseMode();
+    }
+    protected void GetLicenseMode()
+    {
+        dt = new DataTable();
+        try
+        {
+            objRegBE.System = ddlSystem.SelectedValue;
+            objRegBE.LicenseType_Code = ddl_License_Type.SelectedValue;
+            dt = objRegDL.GetLicenseModeDAL(objRegBE);
+            if (dt.Rows.Count > 0)
+            {
+                ObjCommon.BindDropDownLists(ddl_LicenseMode, dt, "LicenseMode_Name", "LicenseMode_Code", "0");
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionLogging.SendExcepToDB(ex, "", Request.ServerVariables["REMOTE_ADDR"].ToString());
+            Response.Redirect("~/Error.aspx");
+
+        }
+    }
+    protected void ddl_LicenseMode_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (ddl_LicenseMode.SelectedValue == "3")
+            {
+                Session["System"] = ddlSystem.SelectedValue;
+                Session["LicenseType"] = ddl_License_Type.SelectedValue;
+                Session["Licensem"] = ddl_LicenseMode.SelectedValue;
+                Response.Redirect("~/AD/AMD_Generation.aspx", false);
+            }
+            else
+            {
+                getLicenseData();
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionLogging.SendExcepToDB(ex, Session["UserId"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
+            Response.Redirect("~/Error.aspx");
+
+        }
+    }
+    protected void ddlSystem_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    private void Export(LocalReport report)
+    {
+        string deviceInfo =
+          @"<DeviceInfo>
+                <OutputFormat>PDF</OutputFormat>
+                <PageWidth>8.5in</PageWidth>
+                <PageHeight>11in</PageHeight>
+                <MarginTop>0.25in</MarginTop>
+                <MarginLeft>0.25in</MarginLeft>
+                <MarginRight>0.25in</MarginRight>
+                <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+        Warning[] warnings;
+
+        m_streams = new List<Stream>();
+        StringWriter sw = new StringWriter();
+        HtmlTextWriter hw = new HtmlTextWriter(sw);
+        report.Render("PDF", deviceInfo, CreateStream,
+             out warnings);
+
+        foreach (Stream stream in m_streams)
+        {
+            stream.Position = 0;
+
+        }
+
+    }
+    private Stream CreateStream(string name, string fileNameExtension,
+     Encoding encoding,
+         string mimeType, bool willSeek)
+    {
+        MemoryStream stream = new MemoryStream();
+        m_streams.Add(stream);
+        return stream;
+    }
+    public static byte[] ReadFully(Stream input)
+    {
+        byte[] buffer = new byte[16 * 1024];
+        using (MemoryStream ms = new MemoryStream())
+        {
+            int read;
+            while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                ms.Write(buffer, 0, read);
+            }
+            return ms.ToArray();
+        }
+    }
+    public void Dispose()
+    {
+        if (m_streams != null)
+        {
+            foreach (Stream stream in m_streams)
+                stream.Close();
+            m_streams = null;
+        }
+    }
+    private byte[] Print()
+    {
+        //const string printerName = "Microsoft Office Document Image Writer";
+        byte[] b = null;
+        if (m_streams == null || m_streams.Count == 0)
+            return b;
+
+
+        Stream[] s = m_streams.ToArray();
+        b = ReadFully(s[0]);
+
+        return b;
+        //Response.End();
+
+    }
+}

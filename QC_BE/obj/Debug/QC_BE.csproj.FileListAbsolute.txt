@@ -1,0 +1,4 @@
+E:\sampath\QCLabs\QC_BE\bin\Debug\QC_BE.dll
+E:\sampath\QCLabs\QC_BE\bin\Debug\QC_BE.pdb
+E:\sampath\QCLabs\QC_BE\obj\Debug\QC_BE.dll
+E:\sampath\QCLabs\QC_BE\obj\Debug\QC_BE.pdb
