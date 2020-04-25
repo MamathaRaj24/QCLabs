@@ -106,9 +106,11 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Memo Id">
                                         <ItemTemplate>
+                                          <asp:Label ID="lblcategory" runat="server" Visible="false" Text='<%# Bind("SampleCategory") %>'>
+                                            </asp:Label>
                                             <asp:Label ID="lblMemoId" runat="server" Text='<%# Bind("Memo_ID") %>'>
                                             </asp:Label>
-                                            <asp:Label ID="lblsampleid" runat="server" Text='<%# Bind("SampleID") %>'>
+                                            <asp:Label ID="lblsampleid" Visible="false" runat="server" Text='<%# Bind("SampleID") %>'>
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>

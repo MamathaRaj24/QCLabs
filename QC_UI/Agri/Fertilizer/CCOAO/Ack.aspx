@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="Menu" TagName="menu" Src="~/Agri/Fertilizer/CCOAO/Menu_CCOAO.ascx" %>
 <%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Fertilizer/CCOAO/Header.ascx" %>
-<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Fertilizer/CCOAO/Footer.ascx"%>
+<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Fertilizer/CCOAO/Footer.ascx" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Acknowledgement</title>
@@ -92,7 +92,7 @@
                             <h3 align="center">
                                 Acknowledge Samples Received</h3>
                         </div>
-                        <div class="widget-content">
+                        <div class="widget-content span8">
                             <asp:GridView ID="GVAck" runat="server" CssClass="table table-striped table-bordered"
                                 GridLines="None" AutoGenerateColumns="False">
                                 <Columns>
@@ -121,13 +121,9 @@
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 text-center">
-                                <asp:Label ID="lbltext" runat="server" Visible="false">No Details are available For Acknowledgement</asp:Label>
-                                <asp:Button ID="btnAck" CssClass="btn btn-primary" CausesValidation="false" runat="server"
-                                    Text="Generate Acknowledgement" OnClick="btnAck_Click1" />
-                            </div>
+                            <asp:Label ID="lbltext" runat="server" Visible="false">No Details are available For Acknowledgement</asp:Label>
+                            <asp:Button ID="btnAck" CssClass="btn btn-primary" CausesValidation="false" runat="server"
+                                Text="Generate Acknowledgement" OnClick="btnAck_Click1" />
                         </div>
                     </div>
                 </div>

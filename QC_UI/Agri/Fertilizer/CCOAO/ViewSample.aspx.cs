@@ -15,9 +15,7 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
 {
     Masters ObjDL = new Masters();
     Master_BE objMBE = new Master_BE();
-   // AgriDL objRegdl = new AgriDL();
     CommonFuncs cf = new CommonFuncs();
-   // AgriBE objRegbe = new AgriBE();
     AgriBE objRegbe = new AgriBE();
     AgriDL objRegdl = new AgriDL();
     DataTable dt;
@@ -58,7 +56,6 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
                     lblDate.Text = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year;
                     BindGrid();
                     Bindreject();
-
                 }
                 catch (Exception ex)
                 {
@@ -78,18 +75,8 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
         objRegbe.Action = "VIEW";
         objRegbe.dept = Department;
         dt = objRegdl.CourierIUDR(objRegbe, con);
-        if (dt.Rows.Count > 0)
-        {
-            gvviewsample.DataSource = dt;
-            gvviewsample.DataBind();
-        }
-        else
-        {
-            gvviewsample.DataSource = null;
-            gvviewsample.DataBind();
-            cf.ShowAlertMessage("No Data");
-        }
-
+        gvviewsample.DataSource = dt;
+        gvviewsample.DataBind();
     }
     protected void Bindreject()
     {
@@ -199,7 +186,7 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
             objRegbe.Action = "ACCEPT";
         }
         objRegbe.SampleID = lblsampleid.Text;
-        objRegbe.MemoId = lblmemoid.Text;
+       // objRegbe.MemoId = lblmemoid.Text;
          dt = objRegdl.GenerateSticker_AGRI(objRegbe, con);
         if (dt.Rows.Count > 0)
         {
@@ -232,7 +219,7 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
             objRegbe.Action = "Rjct";
         }
         objRegbe.SampleID = lblsampleid.Text;
-        objRegbe.MemoId = lblmemoid.Text;
+       // objRegbe.MemoId = lblmemoid.Text;
         dt = objRegdl.GenerateSticker_AGRI(objRegbe, con);
         if (dt.Rows.Count > 0)
         {

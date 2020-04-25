@@ -10,6 +10,8 @@
                  Equipment Details</span> </a></li>            
              <li id="Li2" runat="server"><a href="Ack.aspx"><i class="icon-dashboard"></i><span>
                  Ack</span> </a></li>
+                  <li id="Li3" runat="server"><a href="AddAnalyst.aspx"><i class="icon-dashboard"></i><span>
+                 Add Analyst</span> </a></li>
                <li id="usr" runat="server" class="dropdown"><a href="javascript:;" class="dropdown-toggle"
                     data-toggle="dropdown"><i class="icon-user-md "></i><span>User Managment</span>
                     <b class="caret"></b></a>

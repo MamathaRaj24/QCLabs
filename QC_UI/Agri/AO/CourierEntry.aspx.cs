@@ -45,20 +45,11 @@ public partial class AO_CourierEntry : System.Web.UI.Page
             AO_code = Session["AO_Code"].ToString();
             lblDate.Text = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year; 
             lblUser.Text = Session["Role"].ToString() + " -  " + Session["DistName"].ToString() + " -  " + Session["MandName"].ToString();
-
-
+            
             if (!IsPostBack)
             {
                 random();
-                try
-                {
-                    BindGrid();
-                }
-                catch (Exception ex)
-                {
-                    ExceptionLogging.SendExcepToDB(ex, Session["UsrName"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
-                    cf.ShowAlertMessage(ex.ToString());
-                }
+                BindGrid();
             }
         }
         else
@@ -75,7 +66,6 @@ public partial class AO_CourierEntry : System.Web.UI.Page
             objBE.dept = dept;
             objBE.TVP = null;
             dt = objdl.MemoID(objBE, con);
-
             if (dt.Rows.Count > 0)
             {
                 GvCourier.DataSource = dt;
@@ -95,7 +85,6 @@ public partial class AO_CourierEntry : System.Web.UI.Page
             ExceptionLogging.SendExcepToDB(ex, Session["UsrName"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
             cf.ShowAlertMessage(ex.ToString());
         }
-
     }
   
     protected void btnSave_Click(object sender, EventArgs e)
@@ -116,7 +105,7 @@ public partial class AO_CourierEntry : System.Web.UI.Page
                 if (CHK.Checked == true)
                 {
                     if (((TextBox)gr.FindControl("txtCourierName")).Text != "" && ((TextBox)gr.FindControl("txtDisDate")).Text != "" && ((TextBox)gr.FindControl("txtPodNo")).Text != "")
-                    {
+                    {                      
                         ddt.Rows.Add();
                         ddt.Rows[i]["SampleCat"] = ((Label)gr.FindControl("lblcategory")).Text;
                         ddt.Rows[i]["Memo_ID"] = ((Label)gr.FindControl("lblMemoId")).Text;
@@ -135,7 +124,7 @@ public partial class AO_CourierEntry : System.Web.UI.Page
             objBE.state = state;
             objBE.dept = dept;
             objBE.UserId = AO_code;
-            objBE.Action = "I";
+            objBE.Action = "AI";
             objBE.TVP = ddt;
             objBE.SampleCategory = "";
             dt = objdl.CourierIUDR(objBE, con);
@@ -143,6 +132,7 @@ public partial class AO_CourierEntry : System.Web.UI.Page
                 cf.ShowAlertMessage("Insert Fail");
             else
                 cf.ShowAlertMessage("Courier Entry Saved Successfully");
+           
             BindGrid();
             btnSave.Visible = false;
         }
@@ -151,7 +141,6 @@ public partial class AO_CourierEntry : System.Web.UI.Page
             ExceptionLogging.SendExcepToDB(ex, Session["UsrName"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
             cf.ShowAlertMessage(ex.ToString());
         }
-
     }
     public void random()
     {

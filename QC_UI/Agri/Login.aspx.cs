@@ -110,6 +110,8 @@ public partial class Agri_Login : System.Web.UI.Page
                         Session["StateCode"] = StateCode;
                         Session["Statename"] = Statename;
                         Session["Department"] = Department;
+                        Session["DistCode"] = DistCode;
+                        Session["Mandcode"] = MandCode;
                         captch.Text = "";
 
                         Session["LoginSno"] = objLogin.insertUserLoginStatus(txtUname.Text, DateTime.Now, Request.ServerVariables["REMOTE_ADDR"].ToString(), "Login Successful", ConnKey);

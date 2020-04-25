@@ -131,7 +131,7 @@
                                 <div class="span5">
                                     <div class="control-group">
                                         <label class="control-label" for="username">
-                                            Dont allot</label>
+                                           Allot Sample</label>
                                         <div class="controls">
                                             <asp:RadioButtonList ID="rdbldontallot" runat="server" RepeatDirection="Horizontal">
                                                 <asp:ListItem Value="1">Yes</asp:ListItem>

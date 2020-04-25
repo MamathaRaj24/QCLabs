@@ -18,12 +18,15 @@ public partial class Agri_CodingCenter_Menu_AO : System.Web.UI.UserControl
             liAck.Attributes.Add("class", "active");
 
         if (activepage.Contains("ViewSample.aspx"))
-            li3.Attributes.Add("class", "active");
+            LiView.Attributes.Add("class", "active");
+
+        if (activepage.Contains("ViewMemo.aspx"))
+            LiView.Attributes.Add("class", "active");
 
         if (activepage.Contains("InformationSheet.aspx"))
             li2.Attributes.Add("class", "active");
-        
-        //if (activepage.Contains("CourierEntry.aspx"))
-        //    li1.Attributes.Add("class", "active");
+
+        if (activepage.Contains("CourierEntry.aspx"))
+            li1.Attributes.Add("class", "active");
     }
 }

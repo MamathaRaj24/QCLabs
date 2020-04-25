@@ -5,20 +5,22 @@
             <ul class="mainnav">
                 <li id="db" runat="server"><a href="#"><i class="icon-dashboard"></i><span>Dashboard</span>
                 </a></li>
-                <li id="liAck" runat="server"><a href="Ack.aspx"><i class="icon-check"></i><span>
-                    Acknowledgment </span></a></li>
-                      <li id="li3" runat="server"><a href="ViewSample.aspx"><i></i><span>
-                    View Sample</span></a></li>
-            
-                     <li id="li2" runat="server"><a href="InformationSheet.aspx"><i></i><span>
-                    Information Sheet </span></a></li>
-                    
-                  <%--   <li id="li4" runat="server"><a href="PrintQrcode.aspx"><i></i><span>
-                    Qrcode </span></a></li>--%>
-                      <li id="li1" runat="server"><a href="CourierEntry.aspx"><i></i><span>
-                    Courier Entry </span></a></li>
-               
-               <li id="usr" runat="server" class="dropdown"><a href="javascript:;" class="dropdown-toggle"
+                <li id="liAck" runat="server"><a href="Ack.aspx"><i class="icon-check"></i><span>Acknowledgment
+                </span></a></li>
+                <li id="LiView" runat="server" class="dropdown"><a href="javascript:;" class="dropdown-toggle"
+                    data-toggle="dropdown"><i class="icon-user-md "></i><span>Accept Reject</span> <b
+                        class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="ViewSample.aspx">View Sample</a></li>
+                        <li><a href="ViewMemo.aspx">View Memo</a></li>
+                    </ul>
+                </li>
+                <%--  <li id="li3" runat="server"><a href="ViewSample.aspx"><i></i><span>View Sample</span></a></li>--%>
+                <li id="li2" runat="server"><a href="InformationSheet.aspx"><i></i><span>Information
+                    Sheet </span></a></li>
+                <li id="li1" runat="server"><a href="CourierEntry.aspx"><i></i><span>Courier Entry </span>
+                </a></li>
+                <li id="usr" runat="server" class="dropdown"><a href="javascript:;" class="dropdown-toggle"
                     data-toggle="dropdown"><i class="icon-user-md "></i><span>User Managment</span>
                     <b class="caret"></b></a>
                     <ul class="dropdown-menu">

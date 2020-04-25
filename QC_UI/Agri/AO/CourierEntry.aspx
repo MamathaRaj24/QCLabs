@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CourierEntry.aspx.cs" Inherits="AO_CourierEntry" %>
 
 <%@ Register TagPrefix="Menu" TagName="menu" Src="~/Agri/AO/Menu.ascx" %>
-<%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Header.ascx"%>
+<%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Header.ascx" %>
 <%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Footer.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -94,6 +94,7 @@
                             <h3 align="center">
                                 Courier Entry</h3>
                         </div>
+                        <asp:Label ID="lblError" runat="server" CssClass="text-danger" Text="" ></asp:Label>
                         <div class="widget-content">
                             <asp:GridView ID="GvCourier" runat="server" CssClass="table table-striped table-bordered"
                                 GridLines="None" AutoGenerateColumns="False">
@@ -103,23 +104,20 @@
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Sample Category">
+                                    <asp:TemplateField HeaderText="Sample Category">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblcatname" runat="server"   Text='<%# Bind("Category_Name") %>' />
-                                            <asp:Label ID="lblcategory" runat="server" Visible="false" Text='<%# Bind("SampleCategory") %>'>
-                                            </asp:Label>
+                                            <asp:Label ID="lblcategory" Visible="false" runat="server" Text='<%# Bind("SampleCategory") %>' />
+                                            <asp:Label ID="lblcatname" runat="server" Text='<%# Bind("Category_Name") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Memo Id">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMemoId" runat="server" Text='<%# Bind("Memo_ID") %>'>
-                                            </asp:Label>
+                                            <asp:Label ID="lblMemoId" runat="server" Text='<%# Bind("Memo_ID") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Memo Date">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMemoDate" runat="server" Text='<%# Bind("MemoDate") %>'>
-                                            </asp:Label>
+                                            <asp:Label ID="lblMemoDate" runat="server" Text='<%# Bind("MemoDate") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Courier Name">
@@ -150,8 +148,8 @@
                             </asp:GridView>
                         </div>
                         <div class="span6  offset5">
-                            <asp:Button ID="btnSave" CssClass="btn btn-primary" CausesValidation="false" Visible="false" formnovalidate="formnovalidate"
-                                runat="server" Text="Save" OnClick="btnSave_Click" />
+                            <asp:Button ID="btnSave" CssClass="btn btn-primary" CausesValidation="false" Visible="false"
+                                formnovalidate="formnovalidate" runat="server" Text="Save" OnClick="btnSave_Click" />
                         </div>
                     </div>
                 </div>

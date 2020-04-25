@@ -18,6 +18,9 @@ public partial class Agri_Fertilizer_LabOfficer : System.Web.UI.UserControl
             Li1.Attributes.Add("class", "dropdown active");
 
         if (activepage.Contains("Ack.aspx"))
-            Li2.Attributes.Add("class", "dropdown active"); 
+            Li2.Attributes.Add("class", "dropdown active");
+
+        if (activepage.Contains("AddAnalyst.aspx"))
+            Li3.Attributes.Add("class", "dropdown active"); 
     }
 }

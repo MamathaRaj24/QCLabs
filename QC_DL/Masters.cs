@@ -89,8 +89,8 @@ namespace QC_DL
                 }
             }
         }
-        
-      
+
+
 
         public DataTable CategoryIUDR(Master_BE obj, string ConnKey)
         {
@@ -141,7 +141,7 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@Dept", SqlDbType.VarChar).Value = obj.Dept;
                     da.SelectCommand.Parameters.Add("@cat_id", SqlDbType.VarChar).Value = obj.CatId;
                     da.SelectCommand.Parameters.Add("@cat_name", SqlDbType.VarChar).Value = obj.CatName;
-                   // da.SelectCommand.Parameters.Add("@name", SqlDbType.VarChar).Value = obj.SampleTypeName;
+                    // da.SelectCommand.Parameters.Add("@name", SqlDbType.VarChar).Value = obj.SampleTypeName;
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -156,7 +156,7 @@ namespace QC_DL
                 using (SqlDataAdapter da = new SqlDataAdapter("TestParams_IUDR", con))
                 {
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                   // da.SelectCommand.Parameters.Add("@Dept", SqlDbType.VarChar).Value = obj.Dept;
+                    // da.SelectCommand.Parameters.Add("@Dept", SqlDbType.VarChar).Value = obj.Dept;
                     da.SelectCommand.Parameters.Add("@category", SqlDbType.VarChar).Value = obj.CatId;
                     da.SelectCommand.Parameters.Add("@tvp", SqlDbType.Structured).Value = obj.TVP;
                     da.SelectCommand.Parameters.Add("@Param_Id", SqlDbType.VarChar).Value = obj.ParamID;
@@ -432,34 +432,34 @@ namespace QC_DL
             }
         }
 
-       //Employee
+        //Employee
 
-       public DataTable EmployeeIUDR(Master_BE obj, string ConnKey)
-       {
-           using (SqlConnection con = new SqlConnection(ConnKey))
-           {
-               using (SqlDataAdapter da = new SqlDataAdapter("EMPLOYEE_IUDR", con))
-               {
-                   da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                   da.SelectCommand.Parameters.Add("@EmpID", SqlDbType.VarChar).Value = obj.EmpId;
-                   da.SelectCommand.Parameters.Add("@EmpCode", SqlDbType.VarChar).Value = obj.Empcode;
-                   da.SelectCommand.Parameters.Add("@Dept", SqlDbType.VarChar).Value = obj.Dept;
-                   da.SelectCommand.Parameters.Add("@Name", SqlDbType.VarChar).Value = obj.EmpName;
-                   da.SelectCommand.Parameters.Add("@Mobile", SqlDbType.VarChar).Value = obj.Mobile;
-                   da.SelectCommand.Parameters.Add("@Email", SqlDbType.VarChar).Value = obj.Email;
-                   da.SelectCommand.Parameters.Add("@Active", SqlDbType.VarChar).Value = obj.Active;
-                   da.SelectCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = obj.UserID;
-                   da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
-                   DataTable dt = new DataTable();
-                   da.Fill(dt);
-                   return dt;
-               }
-           }
-       }
+        public DataTable EmployeeIUDR(Master_BE obj, string ConnKey)
+        {
+            using (SqlConnection con = new SqlConnection(ConnKey))
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("EMPLOYEE_IUDR", con))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.Add("@EmpID", SqlDbType.VarChar).Value = obj.EmpId;
+                    da.SelectCommand.Parameters.Add("@EmpCode", SqlDbType.VarChar).Value = obj.Empcode;
+                    da.SelectCommand.Parameters.Add("@Dept", SqlDbType.VarChar).Value = obj.Dept;
+                    da.SelectCommand.Parameters.Add("@Name", SqlDbType.VarChar).Value = obj.EmpName;
+                    da.SelectCommand.Parameters.Add("@Mobile", SqlDbType.VarChar).Value = obj.Mobile;
+                    da.SelectCommand.Parameters.Add("@Email", SqlDbType.VarChar).Value = obj.Email;
+                    da.SelectCommand.Parameters.Add("@Active", SqlDbType.VarChar).Value = obj.Active;
+                    da.SelectCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = obj.UserID;
+                    da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
+                }
+            }
+        }
 
 
 
-      
+
         public DataTable GenerateMemoID(Master_BE obj, string Conn)
         {
             using (SqlConnection con = new SqlConnection(Conn))
@@ -611,7 +611,7 @@ namespace QC_DL
                 }
             }
         }
-       
+
         //Minimum Seed Standards--aparna
         public DataTable MinimumSeedStandard_IUDR(Master_BE obj, string ConnKey)
         {
@@ -642,7 +642,7 @@ namespace QC_DL
                 using (SqlDataAdapter da = new SqlDataAdapter("Target_IUDR", con))
                 {
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                    da.SelectCommand.Parameters.Add("@TVP", SqlDbType.Structured).Value = obj.TVP;                  
+                    da.SelectCommand.Parameters.Add("@TVP", SqlDbType.Structured).Value = obj.TVP;
                     da.SelectCommand.Parameters.Add("@Allotid", SqlDbType.Int).Value = obj.AllotId;
                     da.SelectCommand.Parameters.Add("@Year", SqlDbType.VarChar).Value = obj.Year;
                     da.SelectCommand.Parameters.Add("@Catgory", SqlDbType.Int).Value = obj.CatId;
@@ -666,6 +666,40 @@ namespace QC_DL
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand.Parameters.Add("@tvp", SqlDbType.Structured).Value = obj.TVP;
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
+                }
+            }
+        }
+
+
+        public DataTable EmployeeIUDR_Agri(Master_BE obj, string ConnKey)
+        {
+            using (SqlConnection con = new SqlConnection(ConnKey))
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("EMPLOYEE_IUDR", con))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.Add("@EmpID", SqlDbType.VarChar).Value = obj.EmpId;
+                    da.SelectCommand.Parameters.Add("@EmpCode", SqlDbType.VarChar).Value = obj.Empcode;
+                    da.SelectCommand.Parameters.Add("@Dept", SqlDbType.VarChar).Value = obj.Dept;
+                    da.SelectCommand.Parameters.Add("@Name", SqlDbType.VarChar).Value = obj.EmpName;
+                    da.SelectCommand.Parameters.Add("@Mobile", SqlDbType.VarChar).Value = obj.Mobile;
+                    da.SelectCommand.Parameters.Add("@Email", SqlDbType.VarChar).Value = obj.Email;
+                    da.SelectCommand.Parameters.Add("@Active", SqlDbType.VarChar).Value = obj.Active;
+                    da.SelectCommand.Parameters.Add("@State", SqlDbType.VarChar).Value = obj.statecode;
+                    da.SelectCommand.Parameters.Add("@Role", SqlDbType.VarChar).Value = obj.Role;
+                    da.SelectCommand.Parameters.Add("@Lab", SqlDbType.VarChar).Value = obj.labid;
+                    da.SelectCommand.Parameters.Add("@DistCode", SqlDbType.VarChar).Value = obj.DistCode;
+                    da.SelectCommand.Parameters.Add("@zoneCd", SqlDbType.VarChar).Value = obj.ZoneCode;
+                    da.SelectCommand.Parameters.Add("@MandCode", SqlDbType.VarChar).Value = obj.MandCode;
+                    da.SelectCommand.Parameters.Add("@Address", SqlDbType.VarChar).Value = obj.Address;
+                    da.SelectCommand.Parameters.Add("@Desig", SqlDbType.VarChar).Value = obj.DesignationID;
+                    da.SelectCommand.Parameters.Add("@UserName", SqlDbType.VarChar).Value = obj.UserName;
+                    da.SelectCommand.Parameters.Add("@Action", SqlDbType.VarChar).Value = obj.Action;
+
+                    da.SelectCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = obj.UserID;
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     return dt;

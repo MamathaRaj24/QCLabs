@@ -94,7 +94,6 @@ public partial class Agri_Fertilizer_LabOfficer_EquipmentDetails : System.Web.UI
                 cf.ShowAlertMessage("No Data");
                 divequipment.Visible = false;
             }
-
         }
         catch (Exception ex)
         {
@@ -114,8 +113,6 @@ public partial class Agri_Fertilizer_LabOfficer_EquipmentDetails : System.Web.UI
     protected void ddlSampType_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindGrid();
-
-
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -163,12 +160,9 @@ public partial class Agri_Fertilizer_LabOfficer_EquipmentDetails : System.Web.UI
                 cf.ShowAlertMessage("Equipment Details saved");
                 BindSampleType();
                 divequipment.Visible = false;
-
             }
             ddlSampType.ClearSelection();
-
         }
-
         catch (Exception ex)
         {
             ExceptionLogging.SendExcepToDB(ex, Session["UsrName"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());

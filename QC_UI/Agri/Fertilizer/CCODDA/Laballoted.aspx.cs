@@ -41,15 +41,11 @@ public partial class Agri_Fertilizer_CCODDA_Laballoted : System.Web.UI.Page
             user = Session["CCDDA_Code"].ToString();
             con = Session["ConnKey"].ToString();
             Department = Session["Department"].ToString();
-            //  dicode = Session["ssoCode"].ToString();
-
-
             if (!IsPostBack)
             {
                 random();
                 try
                 {
-
                     lblUser.Text = Session["Role"].ToString() + " -  " + Session["UsrName"].ToString();
                     lblDate.Text = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year;
                     BindSamples();
@@ -65,42 +61,33 @@ public partial class Agri_Fertilizer_CCODDA_Laballoted : System.Web.UI.Page
         {
             Response.Redirect("../Error.aspx");
         }
-
     }
+
     protected void BindSamples()
     {
         dt = new DataTable();
-      //  objBE.dept = Department;
-        //objBE.UserId = user;  
         objBE.Action = "ASMPL";
         dt = Objrdl.GenerateSticker_AGRI(objBE, con);
         if (dt.Rows.Count > 0)
-        {
             cf.BindDropDownLists(ddlsample, dt, "SampleID", "SampleType_ID", "Select");
-          //  lblsampletypeid.Text = dt.Rows[0]["SAMPLETYPE"].ToString();
-        }
-        
-    } 
+    }
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
         objBE.dept = Department;
-        objBE.UserId = Session["Category"].ToString();
+        objBE.SampleCategory = Session["Category"].ToString();
         objBE.SampleID = ddlsample.SelectedItem.Text;
         objBE.SampleType = ddlsample.SelectedValue;
         objBE.status = "0";
         objBE.Action = "ALLOT";
         dt = Objrdl.GenerateSticker_AGRI(objBE, con);
         if (dt.Rows.Count > 0)
-        {
-            
-            cf.ShowAlertMessage("Sample Alloted is : "  + dt.Rows[0]["LabName"].ToString());
-        }
+            cf.ShowAlertMessage("Sample Alloted to Lab : "  + dt.Rows[0]["LabName"].ToString());      
         else
-        {
-
             cf.ShowAlertMessage("Lab alloted failed");
-        }
+        BindSamples();
     }
+
     public void random()
     {
         try

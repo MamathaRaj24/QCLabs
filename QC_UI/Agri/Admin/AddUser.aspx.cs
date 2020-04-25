@@ -352,6 +352,10 @@ public partial class Admin_AddUser : System.Web.UI.Page
             divlab.Visible = true;
             BindLab();
         }
+        if (ddlRole.SelectedValue == "17")
+        {
+            divlab.Visible = false;
+        }
         if (ddlRole.SelectedValue == "8")
         {
             //ddlDesig.SelectedValue = "10";

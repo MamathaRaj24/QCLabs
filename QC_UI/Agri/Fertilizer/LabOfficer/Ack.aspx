@@ -106,7 +106,6 @@
                                             <asp:Label ID="lblsampleid" Text='<%# Eval("SampleID") %>'   runat="server"> </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField DataField="Name" HeaderText="Coding Center Name" />
                                     <asp:BoundField DataField="Courier_Name" HeaderText="Courier Name" />
                                     <asp:BoundField DataField="DispatchDate" HeaderText="Dispatch Date" />
                                     <asp:BoundField DataField="POD_No" HeaderText="Pod No" />

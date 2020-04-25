@@ -67,7 +67,7 @@ public partial class Agri_Fertilizer_CCOAO_Ack : System.Web.UI.Page
         try
         {
             dt = new DataTable();
-            objBE.Action = "S";
+            objBE.Action = "AO";
             objBE.UserId = user;
             objBE.dept = dept;
             objBE.SampleCategory = cate;
@@ -121,7 +121,8 @@ public partial class Agri_Fertilizer_CCOAO_Ack : System.Web.UI.Page
                     ObjCommon.ShowAlertMessage("Receipt Date Should not be Empty");
                 }
             }
-            objBE.AckTVP = ddt;
+         
+            objBE.AckTVP = ddt; 
             objBE.dept = dept;
             objBE.UserId =user;
             objBE.Action = "U";

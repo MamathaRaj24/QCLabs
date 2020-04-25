@@ -89,11 +89,14 @@ public partial class Agri_Fertilizer_CCOAO_CourierEntry : System.Web.UI.Page
         check();
         try
         {
+            DataTable dtt = new DataTable();
             DataTable ddt = new DataTable();
+            ddt.Columns.Add("SampleCat", typeof(string));
             ddt.Columns.Add("Memo_ID", typeof(string));
             ddt.Columns.Add("CourierName", typeof(string));
             ddt.Columns.Add("DispatchDate", typeof(DateTime));
             ddt.Columns.Add("POD_No", typeof(string));
+            dtt.Columns.Add("sampleID", typeof(string));
             int i = 0;
             foreach (GridViewRow gr in GvCourier.Rows)
             {
@@ -102,15 +105,18 @@ public partial class Agri_Fertilizer_CCOAO_CourierEntry : System.Web.UI.Page
                 {
                     if (((TextBox)gr.FindControl("txtCourierName")).Text != "" && ((TextBox)gr.FindControl("txtDisDate")).Text != "" && ((TextBox)gr.FindControl("txtPodNo")).Text != "")
                     {
+                        dtt.Rows.Add();
                         ddt.Rows.Add();
+                        ddt.Rows[i]["SampleCat"] = ((Label)gr.FindControl("lblcategory")).Text; 
                         ddt.Rows[i]["Memo_ID"] = ((Label)gr.FindControl("lblMemoId")).Text; 
                         ddt.Rows[i]["CourierName"] = ((TextBox)gr.FindControl("txtCourierName")).Text;
                         ddt.Rows[i]["DispatchDate"] = cf.Texttodateconverter(((TextBox)gr.FindControl("txtDisDate")).Text);
                         ddt.Rows[i]["POD_No"] = ((TextBox)gr.FindControl("txtPodNo")).Text;
+                        dtt.Rows[i]["sampleID"] = ((Label)gr.FindControl("lblsampleid")).Text;
                         i++;
                     }
-                    objBE.MemoId = ((Label)gr.FindControl("lblMemoId")).Text;
-                    objBE.SampleID = ((Label)gr.FindControl("lblsampleid")).Text; 
+                    //objBE.MemoId = ((Label)gr.FindControl("lblMemoId")).Text;
+                    //objBE.SampleID = ((Label)gr.FindControl("lblsampleid")).Text; 
                 }
                 else
                 {
@@ -121,16 +127,17 @@ public partial class Agri_Fertilizer_CCOAO_CourierEntry : System.Web.UI.Page
             DataTable TVP = new DataTable(); 
             objBE.dept = dept;
             objBE.UserId = user;
-            objBE.Action = "U";
+            objBE.Action = "AU";
             objBE.TVP = ddt;
-            dt = objdl.GenerateSticker_AGRI(objBE, con);
+            objBE.AckTVP = dtt;
+            dt = objdl.CourierIUDR(objBE, con);
             if (dt.Rows.Count > 0)
-                cf.ShowAlertMessage("Insert Fail");
+                cf.ShowAlertMessage(dt.Rows[0][0].ToString());
             else
                 cf.ShowAlertMessage("Courier Entry Saved Successfully");
             BindGrid();
         }
-        catch (Exception ex)
+            catch (Exception ex)
         {
             ExceptionLogging.SendExcepToDB(ex, Session["UsrName"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
             cf.ShowAlertMessage(ex.ToString());

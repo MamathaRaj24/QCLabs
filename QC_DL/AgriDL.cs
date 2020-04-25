@@ -41,10 +41,8 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@Mandal", SqlDbType.VarChar).Value = objbe.Mandal;
                     da.SelectCommand.Parameters.Add("@HouseNo", SqlDbType.VarChar).Value = objbe.HouseNo;
                     da.SelectCommand.Parameters.Add("@Locality", SqlDbType.VarChar).Value = objbe.Locality;
-
                     da.SelectCommand.Parameters.Add("@emailid", SqlDbType.VarChar).Value = objbe.Email;
                     da.SelectCommand.Parameters.Add("@punchnama", SqlDbType.VarChar).Value = objbe.punchnama;
-
                     da.SelectCommand.Parameters.Add("@SampleCollDate", SqlDbType.Date).Value = objbe.SmplCollectingDt;
                     da.SelectCommand.Parameters.Add("@SampleCategory", SqlDbType.VarChar).Value = objbe.SampleCategory;
                     da.SelectCommand.Parameters.Add("@SampleType_ID", SqlDbType.VarChar).Value = objbe.SampleType;
@@ -58,12 +56,10 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@ManufacturingDate", SqlDbType.VarChar).Value = objbe.ManufacturingDate;
                     da.SelectCommand.Parameters.Add("@ExpiryDate", SqlDbType.VarChar).Value = objbe.ExpiryDate;
                     da.SelectCommand.Parameters.Add("@StkRcvdDate", SqlDbType.Date).Value = objbe.StkRcvdDate;
-
                     da.SelectCommand.Parameters.Add("@ManfucaturerName", SqlDbType.VarChar).Value = objbe.ManfucaturerName;
                     da.SelectCommand.Parameters.Add("@ManufacutrerLicence", SqlDbType.VarChar).Value = objbe.ManufacutrerLicence;
                     da.SelectCommand.Parameters.Add("@Address", SqlDbType.VarChar).Value = objbe.Address;
                     da.SelectCommand.Parameters.Add("@ManufacturerState", SqlDbType.VarChar).Value = objbe.ManufacturerState;
-
                     da.SelectCommand.Parameters.Add("@SRegid", SqlDbType.VarChar).Value = objbe.SRegid;
                     da.SelectCommand.Parameters.Add("@loginState", SqlDbType.VarChar).Value = objbe.login_state;
                     da.SelectCommand.Parameters.Add("@dept", SqlDbType.VarChar).Value = objbe.dept;
@@ -117,12 +113,10 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@ManufAddress", SqlDbType.VarChar).Value = objbe.ManufAddress;
                     da.SelectCommand.Parameters.Add("@MarketerState", SqlDbType.VarChar).Value = objbe.MarketerState;
                     da.SelectCommand.Parameters.Add("@MarketerName", SqlDbType.VarChar).Value = objbe.MarketerName;
-
                     da.SelectCommand.Parameters.Add("@MarketerAddress", SqlDbType.VarChar).Value = objbe.MarketerAddress;
                     da.SelectCommand.Parameters.Add("@loginState", SqlDbType.VarChar).Value = objbe.login_state;
                     da.SelectCommand.Parameters.Add("@dept", SqlDbType.VarChar).Value = objbe.dept;
                     da.SelectCommand.Parameters.Add("@REGID", SqlDbType.VarChar).Value = objbe.SRegid;
-
                     da.SelectCommand.Parameters.Add("@Memoid", SqlDbType.VarChar).Value = objbe.MemoId;
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = objbe.Action;
                     DataTable dt = new DataTable();
@@ -542,7 +536,6 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@bs5c", SqlDbType.VarChar).Value = obj.bsClaim5;
                     da.SelectCommand.Parameters.Add("@bs5p", SqlDbType.VarChar).Value = obj.bsPercentage5;
                     da.SelectCommand.Parameters.Add("@bs5cal", SqlDbType.VarChar).Value = obj.bsCalculation5;
-
                     da.SelectCommand.Parameters.Add("@bs6f", SqlDbType.VarChar).Value = obj.bsFound6;
                     da.SelectCommand.Parameters.Add("@bs6c", SqlDbType.VarChar).Value = obj.bsClaim6;
                     da.SelectCommand.Parameters.Add("@bs6p", SqlDbType.VarChar).Value = obj.bsPercentage6;
@@ -550,7 +543,6 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@bsremarks", SqlDbType.VarChar).Value = obj.bsRemarks;
                     da.SelectCommand.Parameters.Add("@ip", SqlDbType.VarChar).Value = obj.ip;
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
-
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     return dt;
@@ -569,7 +561,6 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@status", SqlDbType.VarChar).Value = obj.status;
                     da.SelectCommand.Parameters.Add("@sampleid", SqlDbType.VarChar).Value = obj.SampleID;
                     da.SelectCommand.Parameters.Add("@AnalystID", SqlDbType.VarChar).Value = obj.AnalystId;
-
                     da.SelectCommand.Parameters.Add("@startdt", SqlDbType.VarChar).Value = obj.startdt;
                     da.SelectCommand.Parameters.Add("@enddt", SqlDbType.VarChar).Value = obj.enddt;
                     da.SelectCommand.Parameters.Add("@remarks", SqlDbType.VarChar).Value = obj.Remarks;
@@ -772,10 +763,8 @@ namespace QC_DL
         {
             using (SqlConnection con = new SqlConnection(ConnKey))
             {
-
                 using (SqlDataAdapter da = new SqlDataAdapter("DCA_TestResult", con))
                 {
-
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand.Parameters.Add("@sampleid", SqlDbType.VarChar).Value = obj.SampleID;
                     da.SelectCommand.Parameters.Add("@AnalystID", SqlDbType.VarChar).Value = obj.AnalystId;
@@ -788,19 +777,12 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@status", SqlDbType.VarChar).Value = obj.status;
                     da.SelectCommand.Parameters.Add("@result", SqlDbType.Structured).Value = obj.AckTVP;
                     if (obj.Ds1TVP != null)
-                    {
                         da.SelectCommand.Parameters.Add("@ds1", SqlDbType.Structured).Value = obj.Ds1TVP;
-                    }
                     if (obj.Ds2TVP != null)
-                    {
                         da.SelectCommand.Parameters.Add("@ds2", SqlDbType.Structured).Value = obj.Ds2TVP;
-                    }
                     if (obj.Ds3TVP != null)
-                    {
                         da.SelectCommand.Parameters.Add("@ds3", SqlDbType.Structured).Value = obj.Ds3TVP;
-                    }
                     da.SelectCommand.Parameters.Add("@ip", SqlDbType.VarChar).Value = obj.ip;
-
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
                     da.SelectCommand.Parameters.Add("@subaction", SqlDbType.VarChar).Value = obj.flag;
                     DataTable dt = new DataTable();
@@ -846,16 +828,13 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@Status", SqlDbType.VarChar).Value = obj.status;
                     da.SelectCommand.Parameters.Add("@rejectedresons", SqlDbType.VarChar).Value = obj.Ref;
                     da.SelectCommand.Parameters.Add("@Codingofcrid", SqlDbType.VarChar).Value = obj.UserId;
+                    da.SelectCommand.Parameters.Add("@SampleCategory", SqlDbType.VarChar).Value = obj.SampleCategory;
                     da.SelectCommand.Parameters.Add("@Sampletype", SqlDbType.VarChar).Value = obj.SampleType;
                     da.SelectCommand.Parameters.Add("@UserID", SqlDbType.VarChar).Value = obj.UserId;
                     if (obj.TVP != null)
-                    {
-                        da.SelectCommand.Parameters.Add("@tvp", SqlDbType.Structured).Value = obj.TVP;
-                    }
+                        da.SelectCommand.Parameters.Add("@tvp", SqlDbType.Structured).Value = obj.TVP;                   
                     if (obj.AckTVP != null)
-                    {
                         da.SelectCommand.Parameters.Add("@tvplab", SqlDbType.Structured).Value = obj.AckTVP;
-                    }
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -863,15 +842,15 @@ namespace QC_DL
                 }
             }
         }
+
+
         //Equipement Details sampath
         public DataTable Equipemntdetails(AgriBE obj, string ConnKey)
         {
             using (SqlConnection con = new SqlConnection(ConnKey))
             {
-
                 using (SqlDataAdapter da = new SqlDataAdapter("SP_Equipmentdtls_Agri", con))
                 {
-
                     da.SelectCommand.CommandType = CommandType.StoredProcedure; 
                     da.SelectCommand.Parameters.Add("@SampleCategory", SqlDbType.VarChar).Value = obj.Category;
                     da.SelectCommand.Parameters.Add("@Sampletypeid", SqlDbType.VarChar).Value = obj.SampleType;
@@ -881,18 +860,16 @@ namespace QC_DL
                     da.SelectCommand.Parameters.Add("@user", SqlDbType.VarChar).Value = obj.user;
                     da.SelectCommand.Parameters.Add("@labcode", SqlDbType.VarChar).Value = obj.labID;
                     if (obj.TVP != null)
-                    {
                         da.SelectCommand.Parameters.Add("@Tvpequipment", SqlDbType.Structured).Value = obj.TVP;
-                    }
-
                     da.SelectCommand.Parameters.Add("@action", SqlDbType.VarChar).Value = obj.Action;
-
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     return dt;
                 }
             }
         }
+
+
 
     }
 }

@@ -86,30 +86,14 @@ public partial class Agri_Fertilizer_CCODDA_GenerateCode : System.Web.UI.Page
         dt = Objrdl.GenerateSticker_AGRI(objBE, con);
         cf.BindDropDownLists(ddlsample, dt, "SampleID", "SampleID", "Select");
     }
-    protected void BtnGen_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            dt = new DataTable();
-            objBE.dept = Department;
-            objBE.UserId = user;
-            objBE.Action = "SMPLAG";
-            dt = Objrdl.GenerateSticker_AGRI(objBE, con);
-            cf.BindDropDownLists(ddlsample, dt, "RegID", "RegID", "Select");
-        }
-        catch (Exception ex)
-        {
-            ExceptionLogging.SendExcepToDB(ex, Session["UsrName"].ToString(), Request.ServerVariables["REMOTE_ADDR"].ToString());
-            cf.ShowAlertMessage(ex.ToString());
-        }
-        GenerateCode();
-    }
+   
     protected void GenerateCode()
     {
         try
         {
             dt = new DataTable();
             objBE.SampleID = ddlsample.SelectedValue;
+            objBE.UserId = user;
             objBE.Action = "STICKERAG";
             objBE.qrcode = GenerateQRCode(ddlsample.SelectedValue);
             dt = Objrdl.GenerateSticker_AGRI(objBE, con);

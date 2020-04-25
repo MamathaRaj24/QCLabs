@@ -15,7 +15,7 @@ namespace QC_BE
         public string User { get; set; }
         public string IP { get; set; }
         public DataTable TVP { get; set; }
-        
+
 
         //LOCATIONS
         public string statecode { get; set; }
@@ -69,7 +69,7 @@ namespace QC_BE
         public string EmpName { get; set; }
         public string Active { get; set; }
 
-        
+
         //LBAS
         public string labid { get; set; }
         public string labName { get; set; }
@@ -81,43 +81,43 @@ namespace QC_BE
         public string Role { get; set; }
         public string Address { get; set; }
         public string pincode { get; set; }
-        public string pslimit { get; set; }        
+        public string pslimit { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
         public string approval { get; set; }
 
         public int prid { get; set; }
-  
-       
-         
-       //Crop -- Sampath Kumar
-       public string Cropid { get; set; }
-       public string CropName { get; set; }
 
-       //CropVarity
-       public string CropVrcode{ get; set; }
-       public string CropVrName { get; set; }
 
-       //Test
-       public string Testcode { get; set; }
-       public string TestName { get; set; }
 
-       //Equipment Master--Aparna
-       public string EquipCode { get; set; }
-       public string EquipName { get; set; }
+        //Crop -- Sampath Kumar
+        public string Cropid { get; set; }
+        public string CropName { get; set; }
 
-       //Minimum Seed Standards
-       public string CropKindId { get; set; }
-       public string CropKind { get; set; }
-       public string StdId { get; set; }
-       public string MaxLotSize { get; set; }
-       public string MinSubSamples { get; set; }
+        //CropVarity
+        public string CropVrcode { get; set; }
+        public string CropVrName { get; set; }
 
-       //Target Allotment
-       public string Year{ get; set; }
-       public string AllotId { get; set; }
-       public string Target { get; set; }
-       public string ActionBy { get; set; }
+        //Test
+        public string Testcode { get; set; }
+        public string TestName { get; set; }
+
+        //Equipment Master--Aparna
+        public string EquipCode { get; set; }
+        public string EquipName { get; set; }
+
+        //Minimum Seed Standards
+        public string CropKindId { get; set; }
+        public string CropKind { get; set; }
+        public string StdId { get; set; }
+        public string MaxLotSize { get; set; }
+        public string MinSubSamples { get; set; }
+
+        //Target Allotment
+        public string Year { get; set; }
+        public string AllotId { get; set; }
+        public string Target { get; set; }
+        public string ActionBy { get; set; }
     }
 }

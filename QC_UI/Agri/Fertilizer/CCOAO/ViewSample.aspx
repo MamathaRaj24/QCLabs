@@ -1,9 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewSample.aspx.cs" Inherits="Agri_Fertilizer_CCOAO_ViewSample" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ Register TagPrefix="Menu" TagName="menu" Src="~/Agri/Fertilizer/CCOAO/Menu_CCOAO.ascx" %> 
+<%@ Register TagPrefix="Menu" TagName="menu" Src="~/Agri/Fertilizer/CCOAO/Menu_CCOAO.ascx" %>
 <%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Fertilizer/CCOAO/Header.ascx" %>
-<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Fertilizer/CCOAO/Footer.ascx"%>
+<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Fertilizer/CCOAO/Footer.ascx" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -41,22 +41,22 @@
             $('#rdbaccept input').click(function () {
                 var value = $("#rdbaccept input:radio:checked").val();
                 if (value == "A") {
-                  
+
                     $("#ddlrejctreson").hide();
-                    $("#btnSave").show(); 
+                    $("#btnSave").show();
                     $('#lblresons').hide();
                     $('#BtnReject').hide();
                 }
-                if (value == "R") { 
+                if (value == "R") {
                     $("#ddlrejctreson").show();
-                    $("#lblresons").show(); 
+                    $("#lblresons").show();
                     $("#BtnReject").show();
-                    $("#btnSave").hide(); 
+                    $("#btnSave").hide();
                     $("#lblresons").text('Rejected Resons');
 
                 }
 
-            }); 
+            });
 
         });
     </script>
@@ -151,6 +151,9 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
+                                <EmptyDataTemplate>
+                                    <asp:Label runat="server" Text="No Samples to View"></asp:Label>
+                                </EmptyDataTemplate>
                             </asp:GridView>
                         </div>
                     </div>
@@ -161,10 +164,10 @@
                             <div class="widget-header">
                                 <i class="icon-user"></i>
                                 <h3 align="center">
-                                    View Sample</h3>
-                                <div class="alert alert-info">
-                                    <asp:Label ID="lblsampleid" runat="server"></asp:Label>
-                                </div>
+                                    View Sample <span class="alert alert-info">
+                                        <asp:Label ID="lblsampleid" runat="server"></asp:Label>
+                                    </span>
+                                </h3>
                             </div>
                             <div class="widget-content">
                                 <div class="form-group">
@@ -345,15 +348,13 @@
                                         <asp:Label ID="lblpanchanama" runat="server"></asp:Label>
                                     </div>
                                 </div>
-                                <asp:ScriptManager ID="scriptmanager1" runat="server">
-                                </asp:ScriptManager>
+                              
                                 <div class="form-group">
-                                   <%-- <label class="col-md-2 col-lg-2">
-                                        <b style="font-size: small"></b>
-                                        Sample is:
-                                    </label>--%>
-                                    <div class="col-md-2 col-lg-2">
-                                        <asp:RadioButtonList ID="rdbaccept" runat="server" RepeatDirection="Horizontal">
+                                    <label class="col-md-2 col-lg-2">
+                                        <b style="font-size: small"></b>Action
+                                    </label>
+                                    <div class="col-md-2 col-lg-4">
+                                        <asp:RadioButtonList ID="rdbaccept" RepeatDirection="Horizontal" runat="server">
                                             <asp:ListItem Value="A">Accept</asp:ListItem>
                                             <asp:ListItem Value="R">Reject</asp:ListItem>
                                         </asp:RadioButtonList>
@@ -367,12 +368,10 @@
                                     </div>
                                 </div>
                                 <div class="span6 offset5">
-                                    <asp:Button ID="btnSave" CssClass="btn btn-primary" Text="Save"
-                                        CausesValidation="false" formnovalidate="formnovalidate" runat="server" OnClick="btnSave_Click" />
-
-                                        <asp:Button ID="BtnReject" CssClass="btn btn-danger" Text="Reject" OnClientClick=" return validate()"
-                                        CausesValidation="false" formnovalidate="formnovalidate" runat="server" 
-                                        onclick="BtnReject_Click"/>
+                                    <asp:Button ID="btnSave" CssClass="btn btn-primary" Text="Approve" CausesValidation="false"
+                                        formnovalidate="formnovalidate" runat="server" OnClick="btnSave_Click" />
+                                    <asp:Button ID="BtnReject" CssClass="btn btn-danger" Text="Reject" OnClientClick=" return validate()"
+                                        CausesValidation="false" formnovalidate="formnovalidate" runat="server" OnClick="BtnReject_Click" />
                                 </div>
                             </div>
                         </div>
