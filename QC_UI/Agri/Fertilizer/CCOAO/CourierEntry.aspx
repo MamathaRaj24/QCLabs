@@ -106,17 +106,23 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Memo Id">
                                         <ItemTemplate>
-                                          <asp:Label ID="lblcategory" runat="server" Visible="false" Text='<%# Bind("SampleCategory") %>'>
-                                            </asp:Label>
+                                          
                                             <asp:Label ID="lblMemoId" runat="server" Text='<%# Bind("Memo_ID") %>'>
                                             </asp:Label>
-                                            <asp:Label ID="lblsampleid" Visible="false" runat="server" Text='<%# Bind("SampleID") %>'>
+                                             
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="No of Sample">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblnofsample" runat="server" Text='<%# Bind("NOS") %>'>
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Memo Date">
+                                    <asp:TemplateField HeaderText="Lab Name">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMemoDate" runat="server" Text='<%# Bind("MemoDate") %>'>
+                                            <asp:Label ID="lbllabname" runat="server" Text='<%# Bind("LabName") %>'>
+                                            </asp:Label>
+                                             <asp:Label ID="lbllaballoted" Visible="false" runat="server" Text='<%# Bind("Lab_Alloted") %>'>
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>

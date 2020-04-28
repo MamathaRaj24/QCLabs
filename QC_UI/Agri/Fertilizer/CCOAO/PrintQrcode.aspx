@@ -1,15 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PrintQrcode.aspx.cs" Inherits="Agri_Fertilizer_CCOAO_PrintQrcode" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <%@ Register TagPrefix="Menu" TagName="menu" Src="~/Agri/Fertilizer/CCOAO/Menu_CCOAO.ascx" %>
-<%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Header.ascx" %>
-<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Footer.ascx"%>
+<%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Fertilizer/CCOAO/Header.ascx" %>
+<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Fertilizer/CCOAO/Footer.ascx" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-     <title>Coding Officer-GenerateStickers</title>
+    <title>Coding Officer-GenerateStickers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link href="../../../Assets/css/font.css" rel="stylesheet" type="text/css" />
@@ -75,46 +74,71 @@
                         <div class="widget-header coler">
                             <i class="icon-user"></i>
                             <h3 align="center">
-                                GENERATE STICKER
+                               Print QRCODE
                             </h3>
                         </div>
                         <div class="widget-content">
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label" for="ddlsample">
-                                        Select Sample Id
+                                        Select Memo Id
                                     </label>
                                     <div class="controls">
-                                        <asp:DropDownList ID="ddlsample" CssClass="form-control" required runat="server">
+                                        <asp:DropDownList ID="ddlmemo" CssClass="form-control" required runat="server">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
                             </div>
-                            <div class="span4">
+                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label" for="ddlsample">
-                                    </label>
+                                     
                                     <div class="controls">
-                                        <asp:Button ID="btngeneratecode" runat="server" Text="Qrcode" 
-                                            CssClass="btn btn-primary" onclick="btngeneratecode_Click"
-                                             />
+                                         <asp:Button ID="btnget" runat="server" Text="GET QRCODE" 
+                                             CssClass="btn btn-primary" onclick="btnget_Click" />
                                     </div>
                                 </div>
                             </div>
+                            <div class=" span12">
+                                <asp:GridView ID="Gvqrcode" runat="server" CssClass="table table-striped table-bordered"
+                                    GridLines="None" AutoGenerateColumns="False" 
+                                    onrowcommand="Gvqrcode_RowCommand">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Sl.No">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Sample Id">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblsampleid" Text='<%# Eval("SampleID") %>' runat="server"> </asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Qr Code">
+                                            <ItemTemplate>
+                                                <asp:Image ID="img_photo" runat="server" ImageUrl='<%# GetImage(Eval("Sticker")) %>'
+                                                    Height="100px" Width="100px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText=" ">
+                                            <ItemTemplate>
+                                                 <asp:Button ID="Btnqr" runat="server" CommandName="QRCODE" CssClass="btn btn-success" formnovalidate Text="QRCODE" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText=" ">
+                                            <ItemTemplate>
+                                                <asp:Button ID="btninfor" runat="server" CommandName="INFR" CssClass="btn btn-success" formnovalidate Text="INFORMATION SHEET" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                                <asp:Label ID="lbltext" runat="server" Visible="false">No Details are available For Acknowledgement</asp:Label>
+                                 <asp:Label ID="lblsampleid" runat="server" Visible="false"> </asp:Label>
+                            </div>
                             <div class="span12">
-                               
-                                <div class="span3">
-                                    <div class="span4">
-                                        <asp:ImageButton ID="btnImgprint" runat="server" Width="20%" formnovalidate 
-                                            Visible="false" ImageUrl="~/Assets/img/print-button.png" onclick="btnImgprint_Click"
-                                              />
-                                    </div>
-                                </div>
-                                <div class="span12">
-                                    <rsweb:ReportViewer ID="Rpt_Sticker" Width="100%" Height="20px" align="center" runat="server"
-                                        SizeToReportContent="true">
+                                
+                                 <rsweb:ReportViewer ID="Rpt_Sticker" Width="100%" Height="20px" align="center" runat="server"
+                                        SizeToReportContent="true" onload="Rpt_Sticker_Load">
                                     </rsweb:ReportViewer>
-                                </div>
                             </div>
                         </div>
                     </div>

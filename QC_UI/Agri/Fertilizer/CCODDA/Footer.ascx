@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Footer.ascx.cs" Inherits="Agri_Footer" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Footer.ascx.cs" Inherits="Agri_Fertilizer_CCODDA_Footer" %>
 <div class="footer">
     <div class="footer-inner" style="background-color: #111111">
         <div class="container">

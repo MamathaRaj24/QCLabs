@@ -5,7 +5,7 @@
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <%@ Register TagPrefix="Menu" TagName="menu" Src="~/Agri/Fertilizer/CCODDA/Menu_CCODDA.ascx" %>
 <%@ Register TagPrefix="Header" TagName="header" Src="~/Agri/Fertilizer/CCODDA/Header.ascx"%>
-<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Footer.ascx"%>
+<%@ Register TagPrefix="Footer" TagName="footer" Src="~/Agri/Fertilizer/CCODDA/Footer.ascx"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Coding Officer-GenerateStickers</title>
@@ -81,10 +81,10 @@
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label" for="ddlsample">
-                                        Select Sample Id
+                                        Select Memo Id
                                     </label>
                                     <div class="controls">
-                                        <asp:DropDownList ID="ddlsample" CssClass="form-control" required runat="server">
+                                        <asp:DropDownList ID="ddlmemo" CssClass="form-control" required runat="server">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
@@ -99,20 +99,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="span12">
-                               
-                                <div class="span3">
-                                    <div class="span4">
-                                        <asp:ImageButton ID="btnImgprint" runat="server" Width="20%" formnovalidate Visible="false" ImageUrl="~/Assets/img/print-button.png"
-                                            OnClick="btnImgprint_Click1" />
-                                    </div>
-                                </div>
-                                <div class="span12">
-                                    <rsweb:ReportViewer ID="Rpt_Sticker" Width="100%" Height="20px" align="center" runat="server"
-                                        SizeToReportContent="true" onload="Rpt_Sticker_Load">
-                                    </rsweb:ReportViewer>
-                                </div>
-                            </div>
+                            
+                            <asp:GridView ID="Gvqr" runat="server" CssClass="table table-striped table-bordered"
+                                GridLines="None" AutoGenerateColumns="False">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Sl.No">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Sample Id">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblsampleid" Text='<%# Eval("SampleID") %>'   runat="server"> </asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Qr Code">
+                                        <ItemTemplate>
+                                        <asp:Image ID="img_photo" runat="server" ImageUrl='<%# GetImage(Eval("Sticker")) %>' Height="100px" Width="100px"  />  
+                                          
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                             
                         </div>
                     </div>
                 </div>
