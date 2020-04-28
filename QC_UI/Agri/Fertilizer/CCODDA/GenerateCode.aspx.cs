@@ -19,13 +19,12 @@ using System.IO;
 
 public partial class Agri_Fertilizer_CCODDA_GenerateCode : System.Web.UI.Page
 {
-    Masters ObjDL = new Masters();
-    Master_BE objMBE = new Master_BE();
+     
     AgriDL Objrdl = new AgriDL();
     CommonFuncs cf = new CommonFuncs();
     AgriBE objBE = new AgriBE();
     DataTable dt;
-    string con, user, state, Department, dicode; 
+    string con, user, state, Department, dicode,Category; 
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -51,8 +50,8 @@ public partial class Agri_Fertilizer_CCODDA_GenerateCode : System.Web.UI.Page
             user = Session["CCDDA_Code"].ToString();
             con = Session["ConnKey"].ToString();
             Department = Session["Department"].ToString();
-          //  dicode = Session["ssoCode"].ToString();
-
+         
+            Category = Session["Category"].ToString();
 
             if (!IsPostBack)
             {
@@ -81,36 +80,68 @@ public partial class Agri_Fertilizer_CCODDA_GenerateCode : System.Web.UI.Page
     {
         dt = new DataTable();
         objBE.dept = Department;
-        //objBE.UserId = user;
-        objBE.Action = "SMPLAG";
+        objBE.SampleCategory = Category;
+        objBE.Action = "MEMO";
         dt = Objrdl.GenerateSticker_AGRI(objBE, con);
-        cf.BindDropDownLists(ddlsample, dt, "SampleID", "SampleID", "Select");
+        cf.BindDropDownLists(ddlmemo, dt, "Memo_ID", "Memo_ID", "Select");
     }
-   
+    public string GetImage(object img)
+    {
+        if (img != DBNull.Value)
+        {
+            return "data:image/jpg;base64," + Convert.ToBase64String((byte[])img);
+        }
+        else
+        {
+            return "";
+        }
+    }
+    protected void BindmemoSamples()
+    {
+        dt = new DataTable();
+        objBE.dept = Department;
+        objBE.SampleCategory = Category;
+        objBE.MemoId = ddlmemo.SelectedValue;
+        objBE.Action = "MEMO_SAMPLE";
+        dt = Objrdl.GenerateSticker_AGRI(objBE, con);
+        Session["dtsamples"] = dt; 
+    }
+    protected void btngeneratecode_Click(object sender, EventArgs e)
+    {
+        BindmemoSamples();
+        GenerateCode();
+    }
     protected void GenerateCode()
     {
         try
         {
-            dt = new DataTable();
-            objBE.SampleID = ddlsample.SelectedValue;
+            DataTable dtt = new DataTable();
+            DataTable dt1 = (DataTable)Session["dtsamples"];
+            dtt.Columns.Add("SampleID", typeof(string));
+            dtt.Columns.Add("QRCode", typeof(byte[]));
+            int i = 0;
+            foreach (DataRow dr in dt1.Rows)
+            {
+                dtt.Rows.Add();
+                dtt.Rows[i]["SampleID"] =dt1.Rows[i]["SampleID"].ToString();
+                dtt.Rows[i]["QRCode"] = GenerateQRCode(dt1.Rows[i]["SampleID"].ToString());
+                i++;
+            }
+         
             objBE.UserId = user;
             objBE.Action = "STICKERAG";
-            objBE.qrcode = GenerateQRCode(ddlsample.SelectedValue);
-            dt = Objrdl.GenerateSticker_AGRI(objBE, con);
+            objBE.TVpstiker = dtt;
+           
+
+           dt = Objrdl.GenerateSticker_AGRI(objBE, con);
 
             if (dt.Rows.Count > 0)
             {
-                Session["Sampleid"] = ddlsample.SelectedValue; 
-                btnImgprint.Visible = true;
-                Rpt_Sticker.LocalReport.DataSources.Clear();
-                Rpt_Sticker.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dt));
-                Rpt_Sticker.LocalReport.DataSources.Add(new ReportDataSource("DataSet2", dt));
-                Rpt_Sticker.LocalReport.ReportPath = HttpContext.Current.Server.MapPath("~/RdlcReports/Stiker_agri.rdlc");
-                Rpt_Sticker.LocalReport.Refresh();
-                //sticker.Visible = true;
-                Rpt_Sticker.ShowPrintButton = true;
+                Gvqr.DataSource = dt;
+                Gvqr.DataBind();
+                ddlmemo.Enabled = false; 
             }
-            //BindSamples();
+           // BindmemoSamples();
         }
         catch (Exception ex)
         {
@@ -139,28 +170,8 @@ public partial class Agri_Fertilizer_CCODDA_GenerateCode : System.Web.UI.Page
         Byte[] bytes = qrcode.generateBarcodeToByteArray();
         return bytes;
     }
-
-
-    protected void btnImgprint_Click1(object sender, ImageClickEventArgs e)
-    {
-        Session["ReportName"] = "GenarateStikker";
-        Session["Sampleid"] = Session["Sampleid"].ToString();
-        Session["con"] = con;
-        string url = "Printform.aspx";
-        StringBuilder sb = new StringBuilder();
-        sb.Append("<script type = 'text/javascript'>");
-        sb.Append("window.open('");
-        sb.Append(url);
-        sb.Append("','_blank');");
-        sb.Append("</script>");
-
-        ClientScript.RegisterStartupScript(this.GetType(),
-                     "script", sb.ToString());
-    }
-    protected void btngeneratecode_Click(object sender, EventArgs e)
-    {
-        GenerateCode();
-    }
+     
+    
     public void random()
     {
         try
@@ -205,21 +216,5 @@ public partial class Agri_Fertilizer_CCODDA_GenerateCode : System.Web.UI.Page
         }
     }
 
-    protected void Rpt_Sticker_Load(object sender, EventArgs e)
-    {
-        string exportOption = "Excel";
-        string exportOption1 = "Word";
-        RenderingExtension extension = Rpt_Sticker.LocalReport.ListRenderingExtensions().ToList().Find(x => x.Name.Equals(exportOption, StringComparison.CurrentCultureIgnoreCase));
-        RenderingExtension extensions = Rpt_Sticker.LocalReport.ListRenderingExtensions().ToList().Find(x => x.Name.Equals(exportOption1, StringComparison.CurrentCultureIgnoreCase));
-        if (extension != null)
-        {
-            System.Reflection.FieldInfo fieldInfo = extension.GetType().GetField("m_isVisible", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            fieldInfo.SetValue(extension, false);
-        }
-        if (extensions != null)
-        {
-            System.Reflection.FieldInfo fieldInfo = extension.GetType().GetField("m_isVisible", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            fieldInfo.SetValue(extensions, false);
-        }
-    }
+   
 }

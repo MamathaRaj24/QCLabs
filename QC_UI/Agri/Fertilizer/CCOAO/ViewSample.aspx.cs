@@ -141,53 +141,21 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
     }
 
 
-    //protected void rdbaccept_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    if (rdbaccept.SelectedValue == "A")
-    //    {
 
-    //        btnSave.Visible = true;
-
-    //        lblresons.Visible = false;
-    //        ddlrejctreson.Visible = false;
-    //        btnSave.Text = "Save";
-    //    }
-    //    if (rdbaccept.SelectedValue == "R")
-    //    {
-    //        lblresons.Visible = true;
-    //        ddlrejctreson.Visible = true;
-    //        Bindreject();
-
-    //        btnSave.Visible = true;
-    //        ddlrejctreson.Focus();
-    //        btnSave.Text = "Rejected";
-    //    }
-
-    //}
     protected void btnSave_Click(object sender, EventArgs e)
     {
         DataTable dt = new DataTable();
 
-        //if (rdbaccept.SelectedValue == "R")
-        //{
-        //    if (ddlrejctreson.SelectedIndex ==0)
-        //    {
-        //        cf.ShowAlertMessage("Pls select Rejected Reasons");
-        //        ddlrejctreson.Focus();
-        //        return;
-        //    }
-        //    objRegbe.Ref = ddlrejctreson.SelectedValue;
-        //    objRegbe.status = rdbaccept.SelectedValue;
-        //    objRegbe.Action = "Rjct";
-        //}
+
         if (rdbaccept.SelectedValue == "A")
         {
             objRegbe.status = rdbaccept.SelectedValue;
+            objRegbe.Ref = null;
             objRegbe.Action = "ACCEPT";
         }
         objRegbe.SampleID = lblsampleid.Text;
-       // objRegbe.MemoId = lblmemoid.Text;
-         dt = objRegdl.GenerateSticker_AGRI(objRegbe, con);
+
+        dt = objRegdl.GenerateSticker_AGRI(objRegbe, con);
         if (dt.Rows.Count > 0)
         {
             cf.ShowAlertMessage(dt.Rows[0][0].ToString());
@@ -216,10 +184,10 @@ public partial class Agri_Fertilizer_CCOAO_ViewSample : System.Web.UI.Page
             }
             objRegbe.Ref = ddlrejctreson.SelectedValue;
             objRegbe.status = rdbaccept.SelectedValue;
-            objRegbe.Action = "Rjct";
+            objRegbe.Action = "ACCEPT";
         }
         objRegbe.SampleID = lblsampleid.Text;
-       // objRegbe.MemoId = lblmemoid.Text;
+
         dt = objRegdl.GenerateSticker_AGRI(objRegbe, con);
         if (dt.Rows.Count > 0)
         {
