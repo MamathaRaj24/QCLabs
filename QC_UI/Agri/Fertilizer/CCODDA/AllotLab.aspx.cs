@@ -85,7 +85,7 @@ public partial class Agri_Fertilizer_CCODDA_AllotLab : System.Web.UI.Page
             cf.ShowAlertMessage("Sample Alloted to Lab : " + dt.Rows[0]["LabName"].ToString());
         else
             cf.ShowAlertMessage("Lab alloted failed");
-        BindSamples();
+        BindMemos();
     }
 
     public void random()
